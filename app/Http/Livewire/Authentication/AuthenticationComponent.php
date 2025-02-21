@@ -35,7 +35,7 @@ class AuthenticationComponent extends Component
         $this->validate();
         try{
             $this->credentials = ["email" => $this->email , "password" => $this->password];
-            if (Auth::attempt($this->credentials)) {
+            if (auth()->attempt($this->credentials)) {
 
             if (auth()->user()->profile == 'admin') {
                  return redirect()->route('admin.home');

@@ -7,6 +7,7 @@ use App\Http\Livewire\Admin\UserComponent;
 use \Illuminate\Support\Facades\Route;
 
 
+
 Route::middleware("checkerallreservationstatus")->group( function () {
 Route::prefix("/admin")->group(function (){
 Route::get('/inicio', AdminComponent::class)->name('admin.home');

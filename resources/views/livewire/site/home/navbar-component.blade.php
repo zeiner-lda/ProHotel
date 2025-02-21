@@ -19,9 +19,9 @@
                 <div class="collapse navbar-collapse justify-content-center" id="navbarCollapse">
                     <div class="navbar-nav mr-auto py-0">
                         <a href="/" class="nav-item nav-link active">Home</a>
-                        {{-- <a href="#quartos" class="{{Route::currentRouteName() == 'prohotel.hotel.informations' ? 'd-block' : 'd-none'}} nav-item nav-link">Quartos</a>
+                        <a href="#quartos" class="{{Route::currentRouteName() == 'prohotel.hotel.informations' ? 'd-block' : 'd-none'}} nav-item nav-link">Quartos</a>
                         <a href="#menu" class="{{Route::currentRouteName() == 'prohotel.hotel.informations' ? 'd-block' : 'd-none'}} nav-item nav-link">Menu</a>
-                         <a href="#servicos" class="{{Route::currentRouteName() == 'prohotel.hotel.informations' ? 'd-block' : 'd-none'}} nav-item nav-link">Serviços</a> --}}
+                         <a href="#servicos" class="{{Route::currentRouteName() == 'prohotel.hotel.informations' ? 'd-block' : 'd-none'}} nav-item nav-link">Serviços</a> 
                         <a href="#contactos" class="nav-item nav-link">Contactos</a>
                         @guest
                         <a href="{{ route('login') }}" class="nav-item nav-link">Login</a>
