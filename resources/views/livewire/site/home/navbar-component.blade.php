@@ -24,7 +24,7 @@
                          <a href="#servicos" class="{{Route::currentRouteName() == 'prohotel.hotel.informations' ? 'd-block' : 'd-none'}} nav-item nav-link">Serviços</a> --}}
                         <a href="#contactos" class="nav-item nav-link">Contactos</a>
                         @guest
-                        <a href="{{-- route('login') --}}" class="nav-item nav-link">Login</a>
+                        <a href="{{ route('login') }}" class="nav-item nav-link">Login</a>
                         @endguest
 
                         @auth
