@@ -4,8 +4,60 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c61ff82cbf0142a401a48a8161e1595a",
+    "content-hash": "5394f6e68846e12b8ce9ad0675a213b6",
     "packages": [
+        {
+            "name": "akhaled/livewire-sweetalert",
+            "version": "v0.1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/akhled/livewire-sweetalert.git",
+                "reference": "b910c7cec7264d871416063c90140c94c817eb57"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/akhled/livewire-sweetalert/zipball/b910c7cec7264d871416063c90140c94c817eb57",
+                "reference": "b910c7cec7264d871416063c90140c94c817eb57",
+                "shasum": ""
+            },
+            "require": {
+                "livewire/livewire": "^2.0"
+            },
+            "require-dev": {
+                "orchestra/testbench": "^6.18"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Akhaled\\LivewireSweetalert\\ServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Akhaled\\LivewireSweetalert\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Amro Khaled",
+                    "email": "i@akhaled.com",
+                    "homepage": "http://akhaled.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Integeration Sweetalert with Livewire",
+            "support": {
+                "issues": "https://github.com/akhled/livewire-sweetalert/issues",
+                "source": "https://github.com/akhled/livewire-sweetalert/tree/v0.1.1"
+            },
+            "time": "2021-08-05T10:37:40+00:00"
+        },
         {
             "name": "asm89/stack-cors",
             "version": "v2.2.0",
@@ -1029,6 +1081,68 @@
             "time": "2024-07-18T11:15:46+00:00"
         },
         {
+            "name": "jantinnerezo/livewire-alert",
+            "version": "v3.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/jantinnerezo/livewire-alert.git",
+                "reference": "53a4c04d413528a335864f5f6eb1f3ce3e42c963"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/jantinnerezo/livewire-alert/zipball/53a4c04d413528a335864f5f6eb1f3ce3e42c963",
+                "reference": "53a4c04d413528a335864f5f6eb1f3ce3e42c963",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "^5.5 || ^6.0 || ^7.0 || ^8.0 || ^9.0 || ^10.0",
+                "livewire/livewire": "^2.0",
+                "php": "^7.4|^8.0|^8.1|^8.2"
+            },
+            "require-dev": {
+                "orchestra/testbench": "^6.15|^7.0|^8.0",
+                "phpunit/phpunit": "^9.5|^10.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "aliases": {
+                        "LivewireAlert": "Jantinnerezo\\LivewireAlert\\LivewireAlertFacade"
+                    },
+                    "providers": [
+                        "Jantinnerezo\\LivewireAlert\\LivewireAlertServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Jantinnerezo\\LivewireAlert\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jantinn Erezo",
+                    "email": "erezojantinn@gmail.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "This package provides a simple alert utilities for your livewire components.",
+            "homepage": "https://github.com/jantinnerezo/livewire-alert",
+            "keywords": [
+                "jantinnerezo",
+                "livewire-alert"
+            ],
+            "support": {
+                "issues": "https://github.com/jantinnerezo/livewire-alert/issues",
+                "source": "https://github.com/jantinnerezo/livewire-alert/tree/v3.0"
+            },
+            "time": "2023-07-21T18:17:43+00:00"
+        },
+        {
             "name": "laravel/framework",
             "version": "v8.83.29",
             "source": {
@@ -1731,6 +1845,79 @@
                 }
             ],
             "time": "2024-09-21T08:32:55+00:00"
+        },
+        {
+            "name": "livewire/livewire",
+            "version": "v2.12.8",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/livewire/livewire.git",
+                "reference": "7d657d0dd8761a981f7ac3cd8d71c3b724f3e0b8"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/livewire/livewire/zipball/7d657d0dd8761a981f7ac3cd8d71c3b724f3e0b8",
+                "reference": "7d657d0dd8761a981f7ac3cd8d71c3b724f3e0b8",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/database": "^7.0|^8.0|^9.0|^10.0",
+                "illuminate/support": "^7.0|^8.0|^9.0|^10.0",
+                "illuminate/validation": "^7.0|^8.0|^9.0|^10.0",
+                "league/mime-type-detection": "^1.9",
+                "php": "^7.2.5|^8.0",
+                "symfony/http-kernel": "^5.0|^6.0"
+            },
+            "require-dev": {
+                "calebporzio/sushi": "^2.1",
+                "laravel/framework": "^7.0|^8.0|^9.0|^10.0",
+                "mockery/mockery": "^1.3.1",
+                "orchestra/testbench": "^5.0|^6.0|^7.0|^8.0",
+                "orchestra/testbench-dusk": "^5.2|^6.0|^7.0|^8.0",
+                "phpunit/phpunit": "^8.4|^9.0",
+                "psy/psysh": "@stable"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "aliases": {
+                        "Livewire": "Livewire\\Livewire"
+                    },
+                    "providers": [
+                        "Livewire\\LivewireServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "files": [
+                    "src/helpers.php"
+                ],
+                "psr-4": {
+                    "Livewire\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Caleb Porzio",
+                    "email": "calebporzio@gmail.com"
+                }
+            ],
+            "description": "A front-end framework for Laravel.",
+            "support": {
+                "issues": "https://github.com/livewire/livewire/issues",
+                "source": "https://github.com/livewire/livewire/tree/v2.12.8"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/livewire",
+                    "type": "github"
+                }
+            ],
+            "time": "2024-07-13T19:58:46+00:00"
         },
         {
             "name": "monolog/monolog",
