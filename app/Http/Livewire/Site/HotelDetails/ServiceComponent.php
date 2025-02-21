@@ -2,20 +2,18 @@
 
 namespace App\Http\Livewire\Site\HotelDetails;
 
-use App\Models\Company;
-use Jantinnerezo\LivewireAlert\LivewireAlert;
+use App\Models\Service;
 use Livewire\Component;
 
-class HotelServices extends Component
+class ServiceComponent extends Component
 {
-    use LivewireAlert;
-    public $hotelName, $hotelId;
+    public $hotelId , $searchService;
 
     public function mount($hotelId) {
         try {
-            $this->hotelId = $hotelId;
+        $this->hotelId = $hotelId;
         } catch (\Throwable $th) {
-            $this->alert('error', 'ERRO', [
+        $this->alert('error', 'ERRO', [
                 'toast' =>false,
                 'position'=>'center',
                 'showConfirmButton'=>true,
@@ -27,19 +25,25 @@ class HotelServices extends Component
         }
     }
 
-
     public function render()
     {
-        return view('livewire.site.hotel-details.hotel-services',[
-            'hotel' =>$this->getDetailsClickedHotelByUser()
-        ])->layout('layouts.site.app');
+        return view('livewire.site.hotel-details.service-component',[
+            "services" =>$this->getAllServices()
+        ]);
     }
 
-    public function getDetailsClickedHotelByUser () {
+    public function getAllServices () {
         try {
-            return Company::find($this->hotelId);
-        } catch (\Throwable $th) {
-            $this->alert('error', 'ERRO', [
+            if ($this->searchService) {
+                return Service::query()->where('hotel_id',$this->hotelId)
+                ->where("servicename", "like" , "%".$this->searchService."%")
+                ->paginate(6);
+            }else{
+                return Service::query()->where('hotel_id',$this->hotelId)
+                ->paginate(6);
+            }
+        }catch(\Throwable $th) {
+        $this->alert('error', 'ERRO', [
                 'toast' =>false,
                 'position'=>'center',
                 'showConfirmButton'=>true,

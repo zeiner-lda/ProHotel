@@ -28,7 +28,7 @@
 
           @guest
                 <div class='text-center d-flex gap-1 align-items-center justify-content-center'>
-                <span>Ainda não tem uma conta? </span><a href="{{-- route('client.create.account') --}}" style="color:#0d6efd !important" >clique aqui para registar</a>
+                <span>Ainda não tem uma conta? </span><a href="{{ route('client.create.account') }}" style="color:#0d6efd !important" >clique aqui para registar</a>
                 </div>
         @endguest
 

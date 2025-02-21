@@ -19,15 +19,15 @@
                    </tr>
                 </thead>
                 <tbody class='text-center'>
-                  @if (isset($orderedItems) && $orderedItems->count() > 0)  
+                  @if (isset($orderedItems) && $orderedItems->count() > 0)
                     @foreach ($orderedItems as $item)
-                    <tr>                       
-                      
+                    <tr>
+
                         <td>
                             <img style="width:50px; height:40px;" src='{{asset("/storage/img/".$item->order_photo)}}'  class='img-fluid rounded' />
                         </td>
                         <td>{{$item->order_name}}</td>
-                        <td>{{number_format($item->order_price, 2, ',', ',') ?? 0}} Kz</td>                   
+                        <td>{{number_format($item->order_price, 2, ',', ',') ?? 0}} Kz</td>
                         <td>{{$item->order_quantity}}</td>
                         <td>
                             <button wire:click='deleteItem({{$item->id}})' class='btn btn-sm btn-danger text-capitalize'>
@@ -37,18 +37,18 @@
                         </td>
                     </tr>
                     @endforeach
-                    @else  
+                    @else
                     <td colspan='10'>
                         <div class='alert alert-warning text-center'>Nenhum resultado encontrado!</div>
-                    </td>   
-                    @endif               
+                    </td>
+                    @endif
                 </tbody>
             </table>
-            <div class="{{ $orderedItems->count() < 1 ? 'd-none' : ''}}  ">
+            <div class="{{ !isset($orderedItems) ? 'd-none' : ''}}  ">
                 <Button wire:click='finishOrder' class='btn btn-primary btn-sm text-uppercase rounded'>Finalizar pedido</Button>
-                <Button data-bs-dismiss="modal" class='btn btn-sm btn-dark text-uppercase rounded'>Fechar</Button>                
+                <Button data-bs-dismiss="modal" class='btn btn-sm btn-dark text-uppercase rounded'>Fechar</Button>
             </div>
-       
+
         </div>
         </div>
     </div>
