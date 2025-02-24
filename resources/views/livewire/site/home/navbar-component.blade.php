@@ -1,6 +1,18 @@
 
 
 <div class="container-fluid bg-dark px-0 fixed-top">
+
+    <style>
+        @media (max-width: 992px) {
+            #dropdownItems{
+               display:block !important;
+               background-color: #ccc !important;
+            }
+        }
+    </style>
+
+
+
     <div class="row gx-0">
         <div class="col-lg-3 bg-dark d-none d-lg-block">
             <a href="{{ route('site.index') }}" class="navbar-brand w-100 h-100 m-0 p-0 d-flex align-items-center justify-content-center">
@@ -21,7 +33,7 @@
                         <a href="/" class="nav-item nav-link active">Home</a>
                         <a href="#quartos" class="{{Route::currentRouteName() == 'prohotel.hotel.informations' ? 'd-block' : 'd-none'}} nav-item nav-link">Quartos</a>
                         <a href="#menu" class="{{Route::currentRouteName() == 'prohotel.hotel.informations' ? 'd-block' : 'd-none'}} nav-item nav-link">Menu</a>
-                         <a href="#servicos" class="{{Route::currentRouteName() == 'prohotel.hotel.informations' ? 'd-block' : 'd-none'}} nav-item nav-link">Serviços</a> 
+                         <a href="#servicos" class="{{Route::currentRouteName() == 'prohotel.hotel.informations' ? 'd-block' : 'd-none'}} nav-item nav-link">Serviços</a>
                         <a href="#contactos" class="nav-item nav-link">Contactos</a>
                         @guest
                         <a href="{{ route('login') }}" class="nav-item nav-link">Login</a>
@@ -46,12 +58,18 @@
                                     @endif
                                 </div>
 
-                                <div class="dropdown-menu rounded-0 m-0">
-                                    <a  href="{{ route('prohotel.client.panel.dashboard') }}" class="dropdown-item {{ auth()->user()->profile != 'guest' ? 'd-none' : 'd-block' }}">Meu painel</a>
-                                    <a wire:click.prevent="logout" class="dropdown-item">Terminar sessão</a>
+                                <ul id='dropdownItems' class="dropdown-menu rounded-0 m-0">
+                                    <li>
+                                        <a  href="{{ route('prohotel.client.panel.dashboard') }}" class="dropdown-item {{ auth()->user()->profile != 'guest' ? 'd-none' : 'd-block' }}">Meu painel</a>
+                                    </li>
+                                    <li>
+                                        <a wire:click.prevent="logout" class="dropdown-item">Terminar sessão</a>
+                                    </li>
 
-                                </div>
+                                </ul>
                             </div>
+
+
 
                         @endauth
 
