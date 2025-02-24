@@ -34,10 +34,10 @@ class ClientDashboardComponent extends Component
 
     public function getOrders () {
         try {
-            if ($this->sercher) {
+            if ($this->searcher) {
                 return OrderClient::query()->where("user_id", auth()->user()->id)
                 ->when($this->searcher, fn ($search) => $search
-                ->where("ordername", 'like', '%{$this->searcher}%')
+                ->where("order_name", 'like', '%{$this->searcher}%')
                 )->with("hotel")
                 ->get();
             }else{
@@ -46,15 +46,15 @@ class ClientDashboardComponent extends Component
                 ->get();
             }
         } catch (\Throwable $th) {
-        $this->alert('success', 'SUCESSO', [
-                'toast' => false,
-                'position'=> 'center',
-                'showConfirmButton'=> true,
-                'confirmButtonText'=> 'OK',
-                'timer' => 300000,
+            $this->alert('error', 'ERRO', [
+                'toast' =>false,
+                'position'=>'center',
+                'showConfirmButton'=>true,
+                'confirmButtonText'=>'OK',
+                 'timer' => 300000,
                 'allowOutsideClick'=>false,
-                'html' => '<span>O seu depoimento foi adicionado com sucesso e será revisado pela nossa equipa para posterior aprovação!</span>'
-            ]);
+                 'text'=>'Ocorreu o seguinte erro: '.$th->GetMessage()
+                 ]);
         }
     }
 
@@ -63,15 +63,15 @@ class ClientDashboardComponent extends Component
             $this->choosedStar = true;
             $this->starNumbers = $starNumbers;
         } catch (\Throwable $th) {
-            $this->alert('success', 'SUCESSO', [
+            $this->alert('error', 'ERRO', [
                 'toast' =>false,
                 'position'=>'center',
                 'showConfirmButton'=>true,
                 'confirmButtonText'=>'OK',
-                'timer' => 300000,
+                 'timer' => 300000,
                 'allowOutsideClick'=>false,
-                'html'=>'<span>O seu depoimento foi adicionado com sucesso e será revisado pela nossa equipa para posterior aprovação!</span>'
-            ]);
+                 'text'=>'Ocorreu o seguinte erro: '.$th->GetMessage()
+                 ]);
     }
     }
 
