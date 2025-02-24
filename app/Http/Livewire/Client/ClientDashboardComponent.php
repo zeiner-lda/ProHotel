@@ -12,7 +12,7 @@ use Livewire\Component;
 class ClientDashboardComponent extends Component
 {
     use LivewireAlert;
-    public $testimony, $starquantity, $testimonyId, $searcher, $hotelId, $hotelName ,$testimonial ,$choosedStar, $starNumbers;
+    public $searcher,$testimony, $starquantity, $testimonyId, $hotelId, $hotelName ,$testimonial ,$choosedStar, $starNumbers;
     protected $listeners = ['confirmTestimonialDeletion' => 'confirmTestimonialDeletion'];
     protected $rules = [
         'hotelId' =>'required',
@@ -27,25 +27,33 @@ class ClientDashboardComponent extends Component
     {
         return view('livewire.client.client-dashboard-component',[
             "orders" => $this->getOrders(),
-            "testimonials" =>$this->getTestimonials(),
-            "allAvailableHotelsInAngola" =>$this->getAllHotelsInAngola()
+            "testimonials" => $this->getTestimonials(),
+            "allAvailableHotelsInAngola" => $this->getAllHotelsInAngola()
         ])->layout("layouts.client-dashboard.app");
     }
 
     public function getOrders () {
         try {
-          return OrderClient::query()->where("user_id", auth()->user()->id)
-          ->with("hotel")
-          ->get();
+            if ($this->sercher) {
+                return OrderClient::query()->where("user_id", auth()->user()->id)
+                ->when($this->searcher, fn ($search) => $search
+                ->where("ordername", 'like', '%{$this->searcher}%')
+                )->with("hotel")
+                ->get();
+            }else{
+                return OrderClient::query()->where("user_id", auth()->user()->id)
+                ->with("hotel")
+                ->get();
+            }
         } catch (\Throwable $th) {
         $this->alert('success', 'SUCESSO', [
-                'toast' =>false,
-                'position'=>'center',
-                'showConfirmButton'=>true,
-                'confirmButtonText'=>'OK',
+                'toast' => false,
+                'position'=> 'center',
+                'showConfirmButton'=> true,
+                'confirmButtonText'=> 'OK',
                 'timer' => 300000,
                 'allowOutsideClick'=>false,
-                'html'=>'<span>O seu depoimento foi adicionado com sucesso e será revisado pela nossa equipa para posterior aprovação!</span>'
+                'html' => '<span>O seu depoimento foi adicionado com sucesso e será revisado pela nossa equipa para posterior aprovação!</span>'
             ]);
         }
     }
@@ -53,7 +61,7 @@ class ClientDashboardComponent extends Component
     public function chooseStarQuantity ($starNumbers) {
         try {
             $this->choosedStar = true;
-            $this->starNumbers = $starNumbers;            
+            $this->starNumbers = $starNumbers;
         } catch (\Throwable $th) {
             $this->alert('success', 'SUCESSO', [
                 'toast' =>false,
@@ -79,7 +87,7 @@ class ClientDashboardComponent extends Component
 
 
         if (!$clientAlreadyMadeTestimonial) {
-           
+
             if (!$this->starNumbers) {
                 $this->alert('warning', 'ATENÇÃO', [
                     'toast' =>false,
@@ -138,11 +146,11 @@ class ClientDashboardComponent extends Component
         }
     }
 
-   
+
     public function getTestimonials () {
         try {
-          return Testimonial::query()->where('user_id', auth()->user()->id)      
-          ->paginate(6);        
+          return Testimonial::query()->where('user_id', auth()->user()->id)
+          ->paginate(6);
         } catch (\Throwable $th) {
             $this->alert('success', 'SUCESSO', [
                 'toast' =>false,
@@ -193,7 +201,7 @@ class ClientDashboardComponent extends Component
         }
     }
 
-    
+
     public function updateTestimonial () {
         DB::BeginTransaction();
         try {
