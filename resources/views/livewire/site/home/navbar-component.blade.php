@@ -61,8 +61,9 @@
                                     <li>
                                         <a  href="{{ route('prohotel.client.panel.dashboard') }}" class="dropdown-item {{ auth()->user()->profile != 'guest' ? 'd-none' : 'd-block' }}">Meu painel</a>
                                     </li>
+                                    
                                     <li>
-                                        <a wire:click.prevent="logout" class="dropdown-item">Terminar sessão</a>
+                                        <a wire:click="logout" class="dropdown-item">Terminar sessão</a>
                                     </li>
 
                                 </ul>

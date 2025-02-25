@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Http\Livewire\Site\Home;
-
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 
