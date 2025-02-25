@@ -48,4 +48,8 @@ class User extends Authenticatable
     public function personaldata () {
         return $this->belongsTo(Guest::class, 'guest_id', 'id');
     }
+
+    public function hotel () {
+        return $this->belongsTo(Company::class, 'hotel_id', 'id');
+    }
 }
