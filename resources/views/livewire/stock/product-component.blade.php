@@ -46,7 +46,7 @@
                                           <div class="d-flex align-items-center justify-content-center gap-1">
                                               <button wire:click='edit({{ $product->id }})' data-bs-target="#form-product" data-bs-toggle="modal"  class=' btn btn-sm btn-info'>
                                                 <i class='fa fa-solid fa-edit'></i>
-                                                <span>Editar</span> 
+                                                <span>Editar</span>
                                             </button>
                                               <button wire:click='delete({{ $product->id }})' class=' btn btn-sm btn-danger'>
                                                 <span>Eliminar</span>

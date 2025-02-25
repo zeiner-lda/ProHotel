@@ -14,6 +14,7 @@
      <link rel="stylesheet" href="{{ asset('/dashboard/assets/vendors/bootstrap-datepicker/bootstrap-datepicker.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('/dashboard/assets/vendors/bootstrap-datepicker/bootstrap-datepicker.min.css') }}">
     <link rel="stylesheet" href="{{ asset('/dashboard/assets/css/style.css') }}">
+    <link href="{{asset('/clientpanel/assets/vendor/bootstrap-icons/bootstrap-icons.css')}}" rel="stylesheet" />
     <!-- Select2 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet">
     <!-- Select2 Bootstrap Theme -->

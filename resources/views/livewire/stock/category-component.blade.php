@@ -45,9 +45,9 @@
                                           <div class="d-flex align-items-center justify-content-center gap-1">
                                               <button data-bs-target="#form-category" data-bs-toggle="modal" wire:click='edit({{ $category->id }})' class=' btn btn-sm btn-info'>
                                                   <i class='fa fa-solid fa-edit'></i>
-                                                  <span>Editar</span>  
+                                                  <span>Editar</span>
                                               </button>
-                                          
+
                                               <button wire:click='delete({{ $category->id }})' class=' btn btn-sm btn-danger'>
                                                 <span>Eliminar</span>
                                                 <i class='fa fa-solid fa-trash-alt'></i>
@@ -65,7 +65,7 @@
                                 @endif
 
                               </tbody>
-                            </table>                            
+                            </table>
                         </div>
                         <div class='my-2'>
                             {{ isset($categories) ? $categories->links("pagination::bootstrap-4") : '' }}
