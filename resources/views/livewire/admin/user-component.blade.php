@@ -2,7 +2,7 @@
 <div>
     @section("title" , "Lista de Utilizadores")
     <x-admin.modal-form-user :status='$status' />
-        <div class="container-scroller">        
+        <div class="container-scroller">
             <livewire:admin.top-bar-component />
           <div class="container-fluid page-body-wrapper">
             <x-admin.side-bar />
@@ -40,34 +40,34 @@
                                 @if (isset($data) and count($data) > 0)
                                 @foreach ($data as $user)
                                  <tr>
-                                   <td>{{ $user->email ? $user->created_at : '' }}</td>  
-                                    <td>{{ $user->username  ? $user->username : ''}}</td>  
-                                    <td>{{ $user->email ? $user->email : '' }}</td>  
+                                   <td>{{ $user->email ? $user->created_at : '' }}</td>
+                                    <td>{{ $user->username  ? $user->username : ''}}</td>
+                                    <td>{{ $user->email ? $user->email : '' }}</td>
                                     <td><span class='text-capitalize'>
                                       @if ($user->profile == 'admin')
-                                      <span>Admin</span>                                      
+                                      <span>Admin</span>
                                       @elseif ($user->profile == 'stockroom_manager')
-                                      <span>Gestor de economato</span>                                      
+                                      <span>Gestor de economato</span>
                                       @elseif ($user->profile == 'kitchen_manager')
-                                      <span>Chefe de cozinha</span>                                      
+                                      <span>Chefe de cozinha</span>
                                       @elseif ($user->profile == 'reception')
-                                      <span>Recepção</span>                                      
+                                      <span>Recepção</span>
                                       @endif
-                                    </td> </span> 
-                                    <td>{{ isset($user->hotel->companyname)  ? $user->hotel->companyname  : ''}}</td> 
+                                    </td> </span>
+                                    <td>{{ isset($user->hotel->companyname)  ? $user->hotel->companyname  : ''}}</td>
                                     {{-- <td> <img src="" alt="foto" /></td>         --}}
                                     <td>
                                         <div class="d-flex align-items-center justify-content-center gap-1">
                                             <button wire:click='edit({{ $user->id }})' data-bs-target='#form-add-user' data-bs-toggle='modal' class='btn btn-sm btn-info'>
                                                 <i class='fa fa-solid fa-edit'></i>
-                                                <span>Editar</span>       
+                                                <span>Editar</span>
                                             </button>
                                             <button wire:click='delete({{ $user->id }})' class='btn btn-sm btn-danger'>
                                                 <span>Eliminar</span>
                                     <i class='fa fa-solid fa-trash-alt'></i>
                                             </button>
                                         </div>
-                                    </td>                                                                  
+                                    </td>
                                 </tr>
                                 @endforeach
                                 @else
@@ -80,6 +80,10 @@
 
                               </tbody>
                             </table>
+
+                            <div class='d-flex'>
+                                <span wire:ignore class='my-3'>{{isset($data) ? $data->links('pagination::bootstrap-4') : ''}}</span>
+                            </div>
                         </div>
 
                       </div>

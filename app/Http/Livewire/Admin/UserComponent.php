@@ -6,13 +6,14 @@ use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
+use Livewire\WithPagination;
 
 class UserComponent extends Component
 {
-    use LivewireAlert;
+    use LivewireAlert, WithPagination;
     public $userId, $user, $startdate,$enddate, $profile, $searcher, $status, $username, $email, $password;
     protected $listeners = ['confirmUserDeletion' =>'confirmUserDeletion'];
-   
+
     protected $rules = [
         'username' =>'required',
         'email' =>'required |email|unique:users',
@@ -23,16 +24,16 @@ class UserComponent extends Component
     protected $messages = [
          'username.required' => 'Campo obrigatório',
          "email.required" => 'Campo obrigatório',
-         "email.unique" => 'Email já cadastrado',     
+         "email.unique" => 'Email já cadastrado',
          "password.required" => 'Campo obrigatório',
-         "profile.required" => 'Campo obrigatório',     
-         
+         "profile.required" => 'Campo obrigatório',
+
         ];
 
     public function render()
     {
-        return view('livewire.admin.user-component',[           
-            'data' => $this->getUsers(),  
+        return view('livewire.admin.user-component',[
+            'data' => $this->getUsers(),
         ])->layout('layouts.admin.app');
     }
 
@@ -41,20 +42,20 @@ class UserComponent extends Component
             try{
                 if ($this->searcher) {
                     return User::query()->where('username','like','%'.$this->searcher.'%')
-                    ->where('profile','!=','guest')
+                    ->where('profile','<>','guest')
                     ->with('hotel')
-                    ->get();
+                    ->paginate(6);
                 }else if ($this->startdate && $this->enddate){
-                    return User::query()->where('profile','!=','guest')
+                    return User::query()->where('profile','<>','guest')
                     ->whereBetween('created_at',[$this->startdate, $this->enddate])
                     ->with('hotel')
-                    ->get();
+                    ->paginate(6);
                 }else{
                     return User::query()
-                    ->where('profile','!=','guest')
+                    ->where('profile','<>','guest')
                     ->with('hotel')
-                    ->get(); 
-                }           
+                    ->paginate(6);
+                }
             }catch(\Exception $ex){
                 $this->alert('error', 'ERRO', [
                     'toast' =>false,
@@ -67,10 +68,10 @@ class UserComponent extends Component
                     ]);
             }
         }
-    
-        public function save (User $user) {  
+
+        public function save (User $user) {
             $this->validate();
-            try {       
+            try {
             $this->user = $user;
             fn () => DB::BeginTransaction();
             $user->create([
@@ -79,7 +80,7 @@ class UserComponent extends Component
                 'password' =>bcrypt($this->password),
                 'company_id' => auth()->user()->company_id,
                 'profile' =>$this->profile
-            ]);    
+            ]);
            fn () =>  DB::commit();
             $this->alert('success', 'SUCESSO', [
                 'toast' =>false,
@@ -93,7 +94,7 @@ class UserComponent extends Component
             $this->reset([
             'username',
             'email',
-            'password',            
+            'password',
             'profile'
             ]);
             } catch (\Throwable $th) {
@@ -110,10 +111,10 @@ class UserComponent extends Component
             }
         }
 
-    
+
         public function delete ($userId) {
             try {
-                $this->userId = $userId;           
+                $this->userId = $userId;
                 $this->alert('warning', 'Confirmar', [
                     'icon' => 'warning',
                     'position' => 'center',
@@ -125,11 +126,11 @@ class UserComponent extends Component
                     'confirmButtonText' => 'Confirmar',
                     'confirmButtonColor' => '#3085d6',
                     'cancelButtonColor' => '#d33',
-                    'timer' => '300000',              
+                    'timer' => '300000',
                     'onConfirmed' => 'confirmUserDeletion'
                 ]);
-    
-            
+
+
             } catch (\Throwable $th) {
                 $this->alert('error', 'ERRO', [
                     'toast' =>false,
@@ -142,9 +143,9 @@ class UserComponent extends Component
                 ]);
             }
         }
-    
+
         public function confirmUserDeletion (User $user) {
-            try {            
+            try {
             DB::BeginTransaction();
             User::query()->findorFail($this->userId)->delete();
             DB::commit();
@@ -158,10 +159,10 @@ class UserComponent extends Component
                     'timer' => 300000,
                     'allowOutsideClick'=>false,
                     'text'=>'Ocorreu o seguinte erro: '.$th->getMessage()
-                ]);            
+                ]);
             }
         }
-    
+
         public function edit($userId) {
             try {
                $this->status = true;
@@ -170,8 +171,8 @@ class UserComponent extends Component
                $this->username = $user->username;
                $this->email = $user->email;
                $this->profile = $user->profile;
-              
-    
+
+
             } catch (\Throwable $th) {
                 $this->alert('error', 'ERRO', [
                     'toast' =>false,
@@ -181,10 +182,10 @@ class UserComponent extends Component
                     'timer' => 300000,
                     'allowOutsideClick'=>false,
                     'text'=>'Ocorreu o seguinte erro: '.$th->getMessage()
-                ]);    
+                ]);
             }
         }
-    
+
         public function update () {
             try {
             $user = User::find($this->userId);
@@ -215,10 +216,10 @@ class UserComponent extends Component
                     'timer' => 300000,
                     'allowOutsideClick'=>false,
                     'text'=>'Ocorreu o seguinte erro: '.$th->getMessage()
-                ]);  
+                ]);
             }
         }
-    
+
         public function  closeModal () {
             $this->status = false;
             $this->reset(['userId', 'username' ,'email' ,'profile']);
