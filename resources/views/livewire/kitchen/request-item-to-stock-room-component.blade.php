@@ -44,10 +44,12 @@
                                         <td>
                                           <div class="d-flex align-items-center justify-content-center gap-1">
                                               <button wire:click='requestItem({{ $item->id }})' data-bs-target="#form-request-item" data-bs-toggle="modal"  data-bs-target="#form-item" data-bs-toggle="modal"  class=' btn btn-sm btn-primary'>
+                                                <i class="bi bi-dash"></i>
                                                 <span>Solicitar</span>
                                               </button>
 
                                               <button wire:click='restoreItem({{ $item->id }})' data-bs-target="#form-request-item" data-bs-toggle="modal"  data-bs-target="#form-item" data-bs-toggle="modal"  class=' btn btn-sm btn-info'>
+                                                <i class="bi bi-plus-lg"></i>
                                                 <span>Repor</span>
                                               </button>
                                           </div>
