@@ -52,9 +52,9 @@ class RequestItemToStockRoomComponent extends Component
 
     public function requestItem ($id, StockRoom $item) {
         try {
-            $this->id = $id;
+            $this->itemId = $id;
             $this->status = true;
-            $data =$item->find($id);
+            $data = $item->find( $this->itemId);
             $this->itemRequested = $data->item;
             $this->quantity = $data->quantity;
         } catch (\Throwable $th) {
