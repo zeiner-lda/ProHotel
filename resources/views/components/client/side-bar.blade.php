@@ -12,8 +12,8 @@
       </li>
 
       <li class="nav-item">
-        <a class="{{Route::current()->getName() === 'prohotel.client.panel.profile' ? 'bg-dark  text-light' : ''}} nav-link " href="{{ route('prohotel.client.panel.profile') }}">
-          <i class="bi bi-megaphone {{Route::current()->getName() === 'prohotel.client.panel.profile' ? 'text-light' : ''}}"></i>
+        <a class="{{Route::current()->getName() === 'prohotel.client.panel.testimonials' ? 'bg-dark  text-light' : ''}} nav-link " href="{{ route('prohotel.client.panel.testimonials') }}">
+          <i class="bi bi-megaphone {{Route::current()->getName() === 'prohotel.client.panel.testimonials' ? 'text-light' : ''}}"></i>
           <span>Meus depoimentos</span>
         </a>
       </li>

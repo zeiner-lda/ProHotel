@@ -30,8 +30,6 @@
 <livewire:scripts />
 <script src="{{ asset("/dashboard/assets/js/sweetalert.js") }}"></script>
 <x-livewire-alert::scripts />
-
-
 <!-- Back to Top -->
 <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
 </div>
