@@ -13,6 +13,13 @@
 
       <li class="nav-item">
         <a class="{{Route::current()->getName() === 'prohotel.client.panel.profile' ? 'bg-dark  text-light' : ''}} nav-link " href="{{ route('prohotel.client.panel.profile') }}">
+          <i class="bi bi-megaphone {{Route::current()->getName() === 'prohotel.client.panel.profile' ? 'text-light' : ''}}"></i>
+          <span>Meus depoimentos</span>
+        </a>
+      </li>
+
+      <li class="nav-item">
+        <a class="{{Route::current()->getName() === 'prohotel.client.panel.profile' ? 'bg-dark  text-light' : ''}} nav-link " href="{{ route('prohotel.client.panel.profile') }}">
           <i class="bi bi-person {{Route::current()->getName() === 'prohotel.client.panel.profile' ? 'text-light' : ''}}"></i>
           <span>Meu Perfil</span>
         </a>

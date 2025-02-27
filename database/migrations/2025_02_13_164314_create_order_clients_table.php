@@ -17,11 +17,11 @@ return new class extends Migration
             $table->id();
             $table->string('order_name');
             $table->float('order_price');
-            $table->integer('order_room');         
-            $table->integer("order_quantity");             
-            $table->string("order_photo");            
-            $table->double('order_status')->nullable();                        
-            $table->double('status')->default(false);                        
+            $table->integer('order_room');
+            $table->integer("order_quantity");
+            $table->string("order_photo");
+            $table->enum('order_status',["pending" ,"in_preparation", "finished"])->default("pending");
+            $table->double('status')->default(false);
             $table->foreignId('user_id')->constrait()->onDelete("CASCADE");
             $table->foreignId('item_id')->constrait()->onDelete("CASCADE");
             $table->foreignId('hotel_id')->constrait()->onDelete("CASCADE");

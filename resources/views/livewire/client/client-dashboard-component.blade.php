@@ -38,8 +38,10 @@
                       <div>
 
                       </div>
-                      <div class="d-flex gap-2 mb-2">                       
-                          <input wire:model.live='searcher' class="form-control w-100" type="text" placeholder="Pesquisar"   />
+                      <div class="d-flex gap-2 mb-2">
+                          <input wire:model.live='searcher' class="form-control w-100" type="text" placeholder="Pesquisar" />
+                          <input wire:model.live='startdate' type="date" class='form-control' />
+                          <input wire:model.live='enddate' type="date" class='form-control' />
                      </div>
 
                      <div class='table-responsive'>
@@ -47,8 +49,8 @@
                           <thead class=''>
                             <tr>
                               <th scope="col">Item</th>
-                              <th scope="col">Hotel</th>                           
-                              <th scope="col">Preço</th>                           
+                              <th scope="col">Hotel</th>
+                              <th scope="col">Preço</th>
                               <th scope="col">Status</th>
                             </tr>
                           </thead>
@@ -59,16 +61,16 @@
                             <tr>
                               <td>{{$order->order_name}}</td>
                               <td>{{$order->hotel->companyname}}</td>
-                              <td>{{number_format($order->order_price, 2, ',', ',') ?? 0}}</td>  
+                              <td>{{number_format($order->order_price, 2, ',', ',') ?? 0}}</td>
                               <td>
                                 @if ($order->order_status == 'pending')
                                 <span class='text-uppercase text-danger fw-bold'>Pendente</span>
                                 @elseif ($order->order_status == 'in_preparation')
                                 <span class='text-uppercase text-primary fw-bold'>Em Preparação</span>
                                 @elseif ($order->order_status == 'finished')
-                                <span class='text-uppercase fw-bold'>Finalizado</span>
+                                <span class='text-success text-uppercase fw-bold'>Finalizado</span>
                                 @endif
-                              </td>                            
+                              </td>
                             </tr>
                             @endforeach
                             @else

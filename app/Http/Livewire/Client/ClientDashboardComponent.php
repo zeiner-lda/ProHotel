@@ -12,7 +12,7 @@ use Livewire\Component;
 class ClientDashboardComponent extends Component
 {
     use LivewireAlert;
-    public $searcher,$testimony, $starquantity, $testimonyId, $hotelId, $hotelName ,$testimonial ,$choosedStar, $starNumbers;
+    public $searcher, $startdate ,$enddate ,$testimony, $starquantity, $testimonyId, $hotelId, $hotelName ,$testimonial ,$choosedStar, $starNumbers;
     protected $listeners = ['confirmTestimonialDeletion' => 'confirmTestimonialDeletion'];
     protected $rules = [
         'hotelId' =>'required',
@@ -39,6 +39,11 @@ class ClientDashboardComponent extends Component
                 ->when($this->searcher, fn ($search) => $search
                 ->where("order_name", 'like', '%{$this->searcher}%')
                 )->with("hotel")
+                ->get();
+            }else if ($this->startdate && $this->enddate) {
+                return OrderClient::query()->where("user_id", auth()->user()->id)
+                ->whereBetween("created_at", [$this->startdate, $this->enddate])
+                ->with("hotel")
                 ->get();
             }else{
                 return OrderClient::query()->where("user_id", auth()->user()->id)

@@ -27,7 +27,7 @@ class CheckerDishesWhoAlreadyDone
                 foreach ($this->orders as $order) {
                     $currentTime = \Carbon\Carbon::now();
                     $hoursDifference = $order->created_at->diffInHours($currentTime);
-                    if ($hoursDifference >= 3) {
+                    if ($hoursDifference >= 3 ) {
                         DB::beginTransaction();
                         \App\Models\OrderClient::destroy([$order->id]);
                         DB::commit();
