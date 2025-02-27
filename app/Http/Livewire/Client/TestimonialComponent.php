@@ -259,7 +259,7 @@ class TestimonialComponent extends Component
             Testimonial::destroy($this->testimonyId);
             DB::commit();
         } catch (\Throwable $th) {
-            DB::rollBack();
+        DB::rollBack();
         $this->alert('warning', 'AVISO', [
                 'toast'  => false,
                 'position' => 'center',

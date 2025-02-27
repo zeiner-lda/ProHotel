@@ -9,7 +9,7 @@ use App\Http\Livewire\Kitchen\RequestItemToStockRoomComponent;
 use \Illuminate\Support\Facades\Route;
 
 
-Route::middleware(["auth", "checker.dishes.already.finished", "checkerallreservationstatus"])->group( function () {
+Route::middleware(["auth", "checker.orders.finished", "checkerallreservationstatus"])->group( function () {
 Route::prefix("/cozinha")->group(function () {
     Route::get('/inicio', KitchenComponent::class)->name('kitchen.index');
     Route::get("/solicitar", RequestItemToStockRoomComponent::class)->name('kitchen.request.items');

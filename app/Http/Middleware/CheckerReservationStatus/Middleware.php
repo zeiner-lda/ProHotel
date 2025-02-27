@@ -30,14 +30,12 @@ class Middleware
             if ($this->rervedRooms) {
                  $referenceHour = $this->currentHour->subHours(12)->format('H:i:s');  // Hora atual menos 12 horas
                  // Realiza a atualização
-                     \DB::BeginTransaction();
+                     DB::BeginTransaction();
                      \App\Models\Reservation::where("reservation_hour", '>=', $referenceHour)
                      ->update([
                        "reservation_status" => 'expired'
                       ]);
-                     \DB::commit();
-
-
+                    DB::commit();
 
             }
         } catch (\Throwable $th) {
