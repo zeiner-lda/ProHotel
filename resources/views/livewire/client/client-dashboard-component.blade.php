@@ -36,7 +36,7 @@
                           <i class="fa fa-solid  fa-utensils"></i>
                         </div>
                         <div class="ps-3">
-                          <h6>145</h6>
+                          <h6>0</h6>
                         </div>
                       </div>
                     </div>
@@ -60,7 +60,7 @@
                           <i class="bi bi-megaphone"></i>
                         </div>
                         <div class="ps-3">
-                          <h6>145</h6>
+                          <h6>{{ isset($testimonialCounter) ? $testimonialCounter : 0 }}</h6>
 
                         </div>
                       </div>
