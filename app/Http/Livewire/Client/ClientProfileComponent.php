@@ -44,7 +44,6 @@ class ClientProfileComponent extends Component
     public function update () {
         try {
             $this->userId = auth()->user()->id;
-
             $this->alert('warning', 'Confirmar', [
                 'icon' => 'warning',
                 'position' => 'center',
@@ -74,7 +73,6 @@ class ClientProfileComponent extends Component
 
     public function confirm () {
         try {
-
             $user = User::find($this->userId);
             DB::BeginTransaction();
             $this->user = User::find($this->userId)->update([

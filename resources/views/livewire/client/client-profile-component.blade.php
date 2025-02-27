@@ -1,5 +1,5 @@
 <main id="main" class="main">
-  
+
         <section class="section dashboard">
           <div class="row">
 
@@ -59,7 +59,7 @@
 
                                     <div class="form-group">
                                         <label>Senha</label>
-                                        <input type='password' class='form-control' />
+                                        <input wire:model="password" type='password' class='form-control' />
                                     </div>
 
                                 </div>
@@ -75,7 +75,7 @@
 
                           </div>
                     </div>
-                
+
 
               </div>
             </div><!-- End Left side columns -->

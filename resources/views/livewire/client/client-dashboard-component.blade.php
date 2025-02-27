@@ -1,5 +1,5 @@
 <main id="main" class="main">
-    
+
 
         <style>
             .stars:hover
@@ -15,9 +15,64 @@
         <div class="pagetitle mb-3">
             <h6 class='text-uppercase'>Dashboard</h6>
         </div>
-        <section class="section dashboard">
-          <div class="row">
 
+
+        <section class="section dashboard">
+          <div class="col-lg-12">
+            <div class="row">
+                <div class="col-xxl-6 col-md-6">
+                  <div class="card info-card sales-card">
+
+                    <div class="filter">
+                      <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
+
+                    </div>
+
+                    <div class="card-body">
+                      <h5 class="card-title">Meus Pedidos</h5>
+
+                      <div class="d-flex align-items-center">
+                        <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                          <i class="fa fa-solid  fa-utensils"></i>
+                        </div>
+                        <div class="ps-3">
+                          <h6>145</h6>
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+
+                <div class="col-xxl-6 col-md-6">
+                  <div class="card info-card sales-card">
+
+                    <div class="filter">
+                      <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
+
+                    </div>
+
+                    <div class="card-body">
+                      <h5 class="card-title ">Meus Depoimentos </h5>
+
+                      <div class="d-flex align-items-center">
+                        <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                          <i class="bi bi-megaphone"></i>
+                        </div>
+                        <div class="ps-3">
+                          <h6>145</h6>
+
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+
+            </div>
+          </div>
+
+            <div class="row">
             <!-- Left side columns -->
             <div class="col-lg-12">
               <div class="row">
