@@ -40,7 +40,6 @@
 
                         @auth
 
-
                             <div class="nav-item dropdown">
 
                                 <div class='d-flex gap-1 align-items-center'>
@@ -58,18 +57,18 @@
                                 </div>
 
                                 <ul id='dropdownItems' class="dropdown-menu rounded-0 m-0">
+                                   
                                     <li>
                                         <a  href="{{ route('prohotel.client.panel.dashboard') }}" class="dropdown-item {{ auth()->user()->profile != 'guest' ? 'd-none' : 'd-block' }}">Meu painel</a>
                                     </li>
-                                    
+
+
                                     <li>
                                         <a wire:click="logout" class="dropdown-item">Terminar sessão</a>
                                     </li>
 
                                 </ul>
                             </div>
-
-
 
                         @endauth
 
