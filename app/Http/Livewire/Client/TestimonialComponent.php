@@ -153,8 +153,7 @@ class TestimonialComponent extends Component
 
     public function getAllHotelsInAngola () {
         try {
-          return Company::query()->select(['id','companyname'])
-          ->get();
+          return Company::query()->select('id','companyname')->get();
         } catch (\Throwable $th) {
         $this->alert('error', 'ERRO', [
                 'toast' =>false,
@@ -170,8 +169,8 @@ class TestimonialComponent extends Component
 
     public function editTestimonial ($id) {
         try {
-            $this->status = true;
            $this->testimonyId = $id;
+           $this->status = true;
            $data = Testimonial::find($this->testimonyId);
            $this->testimony = $data->text;
            $this->hotelId = $data->hotel_id;

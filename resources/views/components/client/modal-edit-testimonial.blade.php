@@ -20,9 +20,9 @@
             <label class='form-label'>Hotel:</label>
             <select required  wire:model='hotelId' class='form-select text-dark'>
               <option>Selecionar</option>
-              @if (isset($hotels) and $hotels->count() > 0)
-              @foreach ($hotels as $hotel)
-               <option value="{{ $hotel->id }}">{{ $hotel->companyname }}</option>
+              @if (isset($allAvailableHotelsInAngola) and $allAvailableHotelsInAngola->count() > 0)
+              @foreach ($allAvailableHotelsInAngola as $hotel)
+               <option value="{{$hotel->id}}">{{$hotel->companyname}}</option>
               @endforeach
               @endif
             </select>

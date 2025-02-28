@@ -1,6 +1,6 @@
 <main id="main" class="main">
     <x-client.modal-add-testimonial :allAvailableHotelsInAngola=$allAvailableHotelsInAngola />
-    <x-client.modal-edit-testimonial  />
+    <x-client.modal-edit-testimonial :allAvailableHotelsInAngola=$allAvailableHotelsInAngola />
 
         <style>
             .stars:hover

@@ -2,7 +2,7 @@
 <div>
     @section("title" , "Pedidos")
         <div class="container-scroller">
-           
+
             <livewire:admin.top-bar-component />
 
           <div class="container-fluid page-body-wrapper">
@@ -20,7 +20,7 @@
                         <h5 class="card-title text-muted text-uppercase">Pedidos</h5>
                         </p>
 
-                        <div class="col-md-12 d-flex align-items-center gap-2">                  
+                        <div class="col-md-12 d-flex align-items-center gap-2">
                           <input type='text' wire:model.live="searcher" placeholder='Pesquisar' class='form-control' />
                           <input title='Data inicial' type='date' wire:model.live="startdate"  class='form-control' />
                           <input  title='Data final' type='date' wire:model.live="enddate" class='form-control' />
@@ -29,8 +29,8 @@
                             <table class="table table-hover">
                               <thead>
                                 <tr>
+                                    <th>Data de pedido</th>
                                  <th>Foto</th>
-                                  <th>Data de registo</th>
                                   <th>Item</th>
                                   <th>Preço</th>
                                   <th class='text-center'>Quarto</th>
@@ -41,21 +41,17 @@
                                 @if (isset($orders) and count($orders) > 0)
                                 @foreach ($orders as $order)
                                     <tr>
-                                        <td>
-                                            <img class='rounded' src="{{asset('/storage/img/'.$order->order_photo)}}" />
-                                        </td>
-                                       <td>{{ $order->created_at }}</td>
-                                       <td>{{ $order->order_name }}</td>
+                                      <td>{{ $order->created_at }}</td>
+                                      <td> <img class='rounded' src="{{asset('/storage/img/'.$order->order_photo)}}" /> </td>
+                                      <td>{{ $order->order_name }}</td>
                                        <td>{{ $order->order_price }}</td>
                                        <td class='text-center'>{{ $order->order_room }}</td>
                                         <td>
                                           <div class="d-flex align-items-center justify-content-center gap-1">
-                                            
                                             <button class='btn btn-sm btn-dark text-uppercase'>
                                                 @if ($order->order_status == "finished")
-                                                <span>Finalizado</span>                                           
+                                                <span>Finalizado</span>
                                                 @endif
-                                                {{-- <i class='fa fa-solid fa-trash-alt'></i> --}}
                                             </button>
                                           </div>
                                         </td>
