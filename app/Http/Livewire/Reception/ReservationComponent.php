@@ -15,38 +15,32 @@ use Livewire\WithPagination;
 class ReservationComponent extends Component
 {
     use LivewireAlert, WithPagination;
-    public $startdate, $enddate, $checkinReportData = [], $searcher , $price , $quantityOfDays , $reservationId , $payment_method, $notes;
+    public $reservationId, $startdate, $enddate, $checkinReportData = [], $searcher , $price , $quantityOfDays ,$payment_method, $notes;
     protected $listeners = ['confirmCancelReservation' => 'confirmCancelReservation'];
     public function render()
     {
         return view('livewire.reception.reservation-component',[
-            "data" =>$this->getReservations(),
-            "availableRooms" =>$this->getAvailableRooms(),
+            "data" => $this->getReservations(),
+            "availableRooms" => $this->getAvailableRooms(),
         ])->layout('layouts.admin.app');
     }
 
     public function getReservations () {
         try {
             if ($this->searcher) {
-            return Reservation::query()
-                ->with("room")
-                ->with("guest",)
-                ->whereHas('guest', function ($query) {
-                $query->where('firstname', 'like', '%'.$this->searcher.'%');
-                })
-                ->orderBy('id', "DESC")
-                ->paginate(6);
+            return Reservation::query()->with("room")->with("guest")
+            ->whereHas('guest', function ($query) {
+            $query->where('firstname', 'like', '%'.$this->searcher.'%');
+            })->orderBy('id', "DESC")
+            ->paginate(6);
+
             }else if ($this->startdate and $this->enddate) {
-                 return Reservation::query()
-                ->with("room")
-                ->with("guest",)
+                 return Reservation::query()->with("room")->with("guest")
                 ->whereBetween('created_at', [$this->startdate,$this->enddate])
                 ->orderBy('id', "DESC")
                 ->paginate(6);
             }else {
-                return Reservation::query()
-                ->with("room")
-                ->with("guest")
+                return Reservation::query()->with("room")->with("guest")
                 ->orderBy('id', "DESC")
                 ->paginate(6);
             }
@@ -65,8 +59,7 @@ class ReservationComponent extends Component
 
     public function getAvailableRooms () {
         try {
-            return Room::query()->where('status', 'available')
-            ->get();
+            return Room::query()->where('status', 'available')->get();
         } catch (\Throwable $th) {
         $this->alert('error', 'ERRO', [
             'toast' =>false,
@@ -125,7 +118,6 @@ class ReservationComponent extends Component
 
     public function finishCheckin (Reservation $reservation, Checkin $checkin)  {
         try {
-
             $currentDFullDateAndTime = Carbon::now();
             if ($this->quantityOfDays == 0) {
                 $this->alert('warning', 'AVISO', [
@@ -191,7 +183,8 @@ class ReservationComponent extends Component
 
     public function cancelReservation ($id) {
         try {
-            $this->id = $id;
+
+            $this->reservationId = $id;
             $this->alert('warning', 'Confirmar', [
                 'icon' => 'warning',
                 'position' => 'center',
@@ -205,7 +198,7 @@ class ReservationComponent extends Component
                 'cancelButtonColor' => '#d33',
                 'timer' => '300000',
                 'allowOutsideClick'=>false,
-                'onConfirmed' => 'confirmCancelReservation'
+                'onConfirmed' => "confirmCancelReservation"
             ]);
         } catch (\Throwable $th) {
         $this->alert('error', 'ERRO', [
@@ -220,10 +213,18 @@ class ReservationComponent extends Component
         }
     }
 
-    public function confirmCancelReservation (Reservation $reservation) {
-        try {
+
+
+    public function confirmCancelReservation () {
+    try {
+
        DB::beginTransaction();
-        $reservation->destroy([$this->id]);
+       $reservationInfo = DB::table("reservations")->find($this->reservationId);
+       DB::table("rooms")->where("id", $reservationInfo->room_id)
+       ->update([
+            "status" => "available"
+        ]);
+        Reservation::destroy([$this->reservationId]);
        DB::commit();
         } catch (\Throwable $th) {
        DB::commit();

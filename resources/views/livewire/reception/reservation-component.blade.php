@@ -1,17 +1,12 @@
 
 <div>
     @section("title" , "Reservas")
-        <div class="container-scroller">
-
-          <livewire:admin.top-bar-component />
-
-          <div class="container-fluid page-body-wrapper">
+    <div class="container-scroller">
+        <livewire:admin.top-bar-component />
+        <div class="container-fluid page-body-wrapper">
             <x-reception.side-bar />
-
             <div class="main-panel">
-            <x-reception.modal-form-make-checkin />
               <div class="content-wrapper">
-
                 <div class="container-fluid">
 
                      <div class="col-lg-12 grid-margin stretch-card">
@@ -61,14 +56,24 @@
                                         </td>
                                         <td>
                                           <div class="d-flex align-items-center justify-content-center gap-1">
-                                              <button wire:click='makeCheckin({{ $reservation->id }})' data-bs-target="#form-checkin" data-bs-toggle="modal"   class='{{ $reservation->reservation_status == 'confirmed' ? 'disabled' : '' }} btn btn-sm btn-info'>
+
+                                              <button wire:click='makeCheckin({{ $reservation->id }})'
+                                                 data-bs-target="#form-checkin" data-bs-toggle="modal"
+                                                  class='{{ $reservation->reservation_status == 'confirmed' ? 'disabled' : '' }}
+                                                  btn btn-sm btn-info'
+                                                >
                                                 <i class='fa fa-solid fa-edit'></i>
                                                 <span>Fazer check-in</span>
                                               </button>
-                                              <button wire:click='cancelReservation({{ $reservation->id }})' class='btn btn-sm btn-danger'>
+
+                                              <button
+                                               wire:click='cancelReservation({{ $reservation->id }})'
+                                               class='btn btn-sm btn-danger'
+                                               >
                                                 <span>Eliminar</span>
                                                 <i class='fa fa-solid fa-trash-alt'></i>
                                               </button>
+
 
                                           </div>
 
@@ -87,16 +92,15 @@
                             </table>
                         </div>
                          <div class='d-flex'>
-                              <span wire:ignore class='my-3'>{{isset($data) ? $data->links('pagination::bootstrap-4') : ''}}</span>
+                              <span  class='my-3'>{{isset($data) ? $data->links('pagination::bootstrap-4') : ''}}</span>
                        </div>
 
                       </div>
                     </div>
                   </div>
-
                 </div>
 
+                <x-reception.modal-form-make-checkin />
                 <x-admin.footer />
 
-              </div>
-    </div>
+</div>
