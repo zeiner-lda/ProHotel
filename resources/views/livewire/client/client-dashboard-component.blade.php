@@ -1,7 +1,5 @@
 <main id="main" class="main">
-    {{-- @include("livewire.site.components.clientdashboard.modal-edit-testimonials") --}}
-        <x-client.modal-add-testimonial :allAvailableHotelsInAngola='$allAvailableHotelsInAngola' />
-        <x-client.modal-edit-testimonial  />
+    
 
         <style>
             .stars:hover

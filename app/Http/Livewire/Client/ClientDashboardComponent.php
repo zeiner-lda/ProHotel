@@ -14,21 +14,12 @@ class ClientDashboardComponent extends Component
     use LivewireAlert;
     public $searcher, $startdate ,$enddate;
     protected $listeners = ['confirmTestimonialDeletion' => 'confirmTestimonialDeletion'];
-    protected $rules = [
-        'hotelId' =>'required',
-        'testimonial' =>'required',
-    ];
-    protected $messages = [
-        'hotelId.required' =>'Campo obrigatório*',
-        'testimonial.required' =>'Campo obrigatório*',
-    ];
+    
 
     public function render()
     {
         return view('livewire.client.client-dashboard-component',[
             "orders" => $this->getOrders(),
-            "testimonials" => $this->getTestimonials(),
-            "allAvailableHotelsInAngola" => $this->getAllHotelsInAngola()
         ])->layout("layouts.client-dashboard.app");
     }
 
@@ -60,6 +51,23 @@ class ClientDashboardComponent extends Component
                 'allowOutsideClick'=>false,
                  'text'=>'Ocorreu o seguinte erro: '.$th->GetMessage()
                  ]);
+        }
+    }
+
+    public function getAllHotelsInAngola () {
+        try {
+          return Company::query()->select(['id','companyname'])
+          ->get();
+        } catch (\Throwable $th) {
+        $this->alert('error', 'ERRO', [
+                'toast' =>false,
+                'position'=>'center',
+                'showConfirmButton'=>true,
+                'confirmButtonText'=>'OK',
+                'timer' => 300000,
+                'allowOutsideClick'=>false,
+                'text'=>$th->GetMessage(),
+            ]);
         }
     }
 

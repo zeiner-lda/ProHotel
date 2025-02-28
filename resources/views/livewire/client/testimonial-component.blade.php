@@ -1,7 +1,6 @@
 <main id="main" class="main">
-    {{-- @include("livewire.site.components.clientdashboard.modal-edit-testimonials") --}}
-        <x-client.modal-add-testimonial :$allAvailableHotelsInAngola />
-        <x-client.modal-edit-testimonial  />
+    <x-client.modal-add-testimonial :allAvailableHotelsInAngola=$allAvailableHotelsInAngola />
+    <x-client.modal-edit-testimonial  />
 
         <style>
             .stars:hover
@@ -11,7 +10,6 @@
             }
 
         </style>
-
 
 
         <div class="pagetitle mb-3">
@@ -39,7 +37,10 @@
 
                       </div>
                       <div class="d-flex gap-2 mb-2">
-                         <button class='btn btn-primary d-flex align-items-center'>
+                         <button
+                         data-bs-target='#form-add-testimonial'
+                         data-bs-toggle='modal'
+                         class='btn btn-primary d-flex align-items-center'>
                             <i class="bi bi-plus-lg"></i>
                             Adicionar
                          </button>

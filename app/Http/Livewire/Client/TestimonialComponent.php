@@ -12,24 +12,26 @@ use Livewire\WithPagination;
 class TestimonialComponent extends Component
 {
     use LivewireAlert, WithPagination;
-    public $startdate, $enddate, $searcher, $testimony, $starquantity, $testimonyId, $hotelId, $hotelName ,$testimonial ,$choosedStar, $starNumbers;
+    public $status, $startdate, $enddate, $searcher, $testimony, $starquantity, $testimonyId, $hotelId, $hotelName ,$testimonial ,$choosedStar, $starNumbers;
+    protected $listeners = ['confirmTestimonialDeletion' => 'confirmTestimonialDeletion'];
+
+    protected $rules = [
+        'hotelId' =>'required',
+        'testimonial' =>'required',
+    ];
+    protected $messages = [
+        'hotelId.required' =>'Campo obrigatório*',
+        'testimonial.required' =>'Campo obrigatório*',
+    ];
+
     public function render()
     {
-        try {
+
         return view('livewire.client.testimonial-component',[
-            'testimonials' => $this->getTestimonials()
+           'testimonials' => $this->getTestimonials(),
+           'allAvailableHotelsInAngola' => $this->getAllHotelsInAngola()
         ])->layout("layouts.client-dashboard.app");
-        }catch(Exception $ex){
-            $this->alert('error', 'ERRO', [
-                'toast' =>false,
-                'position' =>'center',
-                'showConfirmButton' =>true,
-                'confirmButtonText' =>'OK',
-                'timer' => 300000,
-                'allowOutsideClick' => false,
-                'text'=> $ex->getMessage()
-            ]);
-        }
+
     }
 
     public function chooseStarQuantity ($starNumbers) {
@@ -137,15 +139,15 @@ class TestimonialComponent extends Component
             }
 
         } catch (\Throwable $th) {
-            $this->alert('success', 'SUCESSO', [
-                'toast' =>false,
-                'position'=>'center',
-                'showConfirmButton'=>true,
-                'confirmButtonText'=>'OK',
-                'timer' => 300000,
-                'allowOutsideClick'=>false,
-                'text'=>'Item adicionado com sucesso!'
-            ]);
+            $this->alert('warning', 'AVISO', [
+                'toast'  => false,
+                'position' => 'center',
+                'showConfirmButton' => true,
+                'confirmButtonText' => 'OK',
+                'timer'  =>  300000,
+                'allowOutsideClick' => false,
+                'text'  =>  $th->GetMessage()
+                ]);
         }
     }
 
@@ -168,6 +170,7 @@ class TestimonialComponent extends Component
 
     public function editTestimonial ($id) {
         try {
+            $this->status = true;
            $this->testimonyId = $id;
            $data = Testimonial::find($this->testimonyId);
            $this->testimony = $data->text;
@@ -271,6 +274,7 @@ class TestimonialComponent extends Component
 
       public function closeModal () {
         try {
+            $this->status = false;
            $this->reset(['testimonyId','hotelId','starquantity' , 'testimony']);
         } catch (\Throwable $th) {
         $this->alert('warning', 'AVISO', [
