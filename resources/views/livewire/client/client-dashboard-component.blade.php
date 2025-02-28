@@ -36,7 +36,7 @@
                           <i class="fa fa-solid  fa-utensils"></i>
                         </div>
                         <div class="ps-3">
-                          <h6>0</h6>
+                          <h6>{{ !is_null($orderCounter) ? $orderCounter : 0 }}</h6>
                         </div>
                       </div>
                     </div>
@@ -60,7 +60,7 @@
                           <i class="bi bi-megaphone"></i>
                         </div>
                         <div class="ps-3">
-                          <h6>{{ isset($testimonialCounter) ? $testimonialCounter : 0 }}</h6>
+                          <h6>{{  !is_null($testimonialCounter) ? $testimonialCounter : 0 }}</h6>
 
                         </div>
                       </div>
@@ -77,7 +77,7 @@
             <div class="col-lg-12">
               <div class="row">
 
-                  <!-- Testimonials -->
+                  <!-- Orders -->
                 <div class="col-12">
                   <div class="card recent-sales overflow-auto">
 
@@ -137,7 +137,7 @@
 
                   </div>
                 </div>
-                <!-- End Testimonials -->
+                <!-- End Orders -->
 
 
               </div>
