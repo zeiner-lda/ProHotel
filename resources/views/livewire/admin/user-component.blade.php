@@ -23,6 +23,7 @@
                           <input title='Data inicial' type='date' wire:model.live="startdate"  class='form-control' />
                           <input  title='Data final' type='date' wire:model.live="enddate" class='form-control' />
                         </div>
+
                         <div class="table-responsive">
                             <table class="table table-hover">
                               <thead>
