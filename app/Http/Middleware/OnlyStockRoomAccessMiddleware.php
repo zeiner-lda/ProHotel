@@ -5,12 +5,12 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 
-class OnlyClientsAccessMiddleware
+class OnlyStockRoomAccessMiddleware
 {
-    
+
     public function handle(Request $request, Closure $next)
     {
-        if (auth()->check() && auth()->user()->profile === "guest") {
+        if (auth()->check() && auth()->user()->profile === "stockroom_manager") {
             return $next($request);
         }else{
             return redirect()->route('login');

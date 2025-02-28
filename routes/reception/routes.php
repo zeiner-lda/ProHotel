@@ -5,7 +5,7 @@ use App\Http\Livewire\Reception\{CheckinComponent, CheckoutComponent, Notificati
 use \Illuminate\Support\Facades\Route;
 
 
-Route::middleware(["auth", "checkerallreservationstatus"])->group( function () {
+Route::middleware(["auth", "only.reception.access", "checkerallreservationstatus"])->group( function () {
 Route::prefix("/recepcao")->group(function () {
 Route::get("/inicio", ReceptionComponent::class)->name('dashboard.reception.index');
 Route::get("/quartos" , RoomComponent::class)->name("reception.rooms");

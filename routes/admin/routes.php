@@ -8,7 +8,7 @@ use \Illuminate\Support\Facades\Route;
 
 
 
-Route::middleware("checkerallreservationstatus")->group( function () {
+Route::middleware(["auth" , "only.admin.access", "checkerallreservationstatus"])->group( function () {
 Route::prefix("/admin")->group(function (){
 Route::get('/inicio', AdminComponent::class)->name('admin.home');
 Route::get("/hoteis", HotelComponent::class)->name('admin.hotels');
