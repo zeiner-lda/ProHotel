@@ -13,7 +13,7 @@ class TopBarComponent extends Component
 {
     use LivewireAlert;
     protected $listeners = ['confirm' => 'confirm'];
-    
+
     public function render()
     {
         return view('livewire.admin.top-bar-component',[
@@ -47,7 +47,7 @@ class TopBarComponent extends Component
         try {
         return OrderNotification::query()
         ->where('status',false)
-        ->where('hotel_id',auth()->user()->company_id) 
+        ->where('hotel_id',auth()->user()->company_id)
         ->count();
         } catch (\Throwable $th) {
         $this->alert('error', 'ERRO', [
@@ -64,13 +64,13 @@ class TopBarComponent extends Component
 
     public function changeStatusAboutSeenNotifications (){
         try {
-         fn () => DB::beginTransaction();
+         DB::beginTransaction();
          Notification::query()->where('hotel_id', auth()->user()->company_id)->update([
             'status' => true
          ]);
-         fn () => DB::commit();
+         DB::commit();
         } catch (\Throwable $th) {
-         fn () => DB::rollBack();
+         DB::rollBack();
         $this->alert('error', 'ERRO', [
             'toast' =>false,
             'position' =>'center',
@@ -85,13 +85,13 @@ class TopBarComponent extends Component
 
     public function changeStatusAboutSeenNotificationsOfOrders (){
         try {
-        fn () => DB::beginTransaction();
+        DB::beginTransaction();
          OrderNotification::query()->where('hotel_id', auth()->user()->company_id)->update([
             'status' => true
          ]);
-         fn () => DB::commit();
+         DB::commit();
         } catch (\Throwable $th) {
-         fn () => DB::rollBack();
+         DB::rollBack();
         $this->alert('error', 'ERRO', [
             'toast' =>false,
             'position' =>'center',
@@ -103,13 +103,13 @@ class TopBarComponent extends Component
             ]);
         }
     }
-    
+
 
     public function getReservationNotifications () {
         try {
            return Notification::query()
            ->where('hotel_id',auth()->user()->company_id)
-           ->where('status',true) 
+           ->where('status',true)
            ->orderBy('id', 'DESC')
            ->limit(10)
            ->get();
@@ -140,7 +140,7 @@ class TopBarComponent extends Component
                 'confirmButtonText' => 'Confirmar',
                 'confirmButtonColor' => '#3085d6',
                 'cancelButtonColor' => '#d33',
-                'timer' => '300000',              
+                'timer' => '300000',
                 'onConfirmed' => 'confirm'
             ]);
 

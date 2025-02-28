@@ -73,7 +73,7 @@ class UserComponent extends Component
             $this->validate();
             try {
             $this->user = $user;
-            fn () => DB::BeginTransaction();
+            DB::BeginTransaction();
             $user->create([
                 'username' =>$this->username,
                 'email' =>$this->email,
@@ -98,7 +98,7 @@ class UserComponent extends Component
             'profile'
             ]);
             } catch (\Throwable $th) {
-            fn () => DB::rollBack();
+            DB::rollBack();
             $this->alert('error', 'ERRO', [
             'toast' =>false,
             'position'=>'center',

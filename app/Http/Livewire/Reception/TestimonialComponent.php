@@ -13,7 +13,7 @@ class TestimonialComponent extends Component
     use LivewireAlert, WithPagination;
     public $testimonialId,$testimonial, $startdate,  $enddate, $searcher;
     protected $listeners = ['confirmChangeVisibilityOfTestimonial' => 'confirmChangeVisibilityOfTestimonial', 'confirmTestimonialDeletion' => 'confirmTestimonialDeletion'];
- 
+
 
     public function render()
     {
@@ -26,18 +26,18 @@ class TestimonialComponent extends Component
         try {
             if ($this->searcher) {
                 return Testimonial::query()->where('text', 'like', '%'.$this->searcher.'%')
-                ->with('user')                
+                ->with('user')
                 ->with('hotel')
                 ->select(['testimonials.*', 'testimonials.id As testimonialId', 'users.*', 'companies.*'])
                 ->paginate(6);
             }else{
                 return Testimonial::query()
                 ->join('users', 'testimonials.user_id', 'users.id')
-                ->join('companies', 'testimonials.hotel_id', 'companies.id')              
+                ->join('companies', 'testimonials.hotel_id', 'companies.id')
                 ->select(['testimonials.*', 'testimonials.id As testimonialId', 'users.*', 'companies.*'])
                 ->paginate(6);
             }
-       
+
         } catch (\Throwable $th) {
         $this->alert('success', 'SUCESSO', [
                 'toast' =>false,
@@ -53,7 +53,7 @@ class TestimonialComponent extends Component
 
     public function changeVisibilityOfStatus ($testimonialId) {
         try {
-            $this->testimonialId = $testimonialId;  
+            $this->testimonialId = $testimonialId;
             $this->alert('warning', 'Confirmar', [
                 'icon' => 'warning',
                 'position' => 'center',
@@ -65,7 +65,7 @@ class TestimonialComponent extends Component
                 'confirmButtonText' => 'Confirmar',
                 'confirmButtonColor' => '#3085d6',
                 'cancelButtonColor' => '#d33',
-                'timer' => '300000',              
+                'timer' => '300000',
                 'onConfirmed' => 'confirmChangeVisibilityOfTestimonial'
             ]);
         } catch (\Throwable $th) {
@@ -81,16 +81,16 @@ class TestimonialComponent extends Component
         }
     }
 
-    public function confirmChangeVisibilityOfTestimonial () {        
-        fn () => DB::BeginTransaction();
+    public function confirmChangeVisibilityOfTestimonial () {
+        DB::BeginTransaction();
         try {
             $this->testimonial = Testimonial::find($this->testimonialId);
             Testimonial::find($this->testimonialId)->update([
                 'visibility' =>  $this->testimonial->visibility == 'private' ? 'public' : 'private',
             ]);
-        fn () => DB::commit();
+        DB::commit();
         } catch (\Throwable $th) {
-        fn () => DB::rollBack();
+        DB::rollBack();
         $this->alert('success', 'SUCESSO', [
                 'toast' =>false,
                 'position'=>'center',
@@ -117,7 +117,7 @@ class TestimonialComponent extends Component
             'confirmButtonText' => 'Confirmar',
             'confirmButtonColor' => '#3085d6',
             'cancelButtonColor' => '#d33',
-            'timer' => '300000',              
+            'timer' => '300000',
             'onConfirmed' => 'confirmTestimonialDeletion'
         ]);
         } catch (\Throwable $th) {
@@ -134,12 +134,12 @@ class TestimonialComponent extends Component
     }
 
     public function confirmTestimonialDeletion () {
-        fn () => DB::BeginTransaction();
+        DB::BeginTransaction();
         try {
             Testimonial::destroy($this->testimonialId);
-        fn () => DB::commit();
+        DB::commit();
         } catch (\Throwable $th) {
-        fn () => DB::rollBack();
+        DB::rollBack();
             $this->alert('success', 'SUCESSO', [
                 'toast' =>false,
                 'position'=>'center',

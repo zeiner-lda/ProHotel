@@ -26,23 +26,23 @@ class NotificationComponent extends Component
                 ->where('hotel_id',auth()->user()->company_id)
                 ->where('notification_title', 'like', '%'.$this->searcher.'%')
                 ->orWhere('notification', 'like', '%'.$this->searcher.'%')
-                ->where('status',true) 
+                ->where('status',true)
                 ->orderBy('id', 'DESC')
-                ->paginate(6);         
+                ->paginate(6);
             }else if($this->startdate && $this->enddate){
                 return Notification::query()
                 ->where('hotel_id',auth()->user()->company_id)
-                ->where('created_at',[$this->startdate,$this->enddate])                
-                ->where('status',true) 
+                ->where('created_at',[$this->startdate,$this->enddate])
+                ->where('status',true)
                 ->orderBy('id', 'DESC')
-                ->paginate(6);         
+                ->paginate(6);
 
             }else{
                 return Notification::query()
                 ->where('hotel_id',auth()->user()->company_id)
-                ->where('status',true) 
+                ->where('status',true)
                 ->orderBy('id', 'DESC')
-                ->paginate(6);          
+                ->paginate(6);
             }
 
         } catch (\Throwable $th) {
@@ -72,7 +72,7 @@ class NotificationComponent extends Component
                 'confirmButtonText' => 'Confirmar',
                 'confirmButtonColor' => '#3085d6',
                 'cancelButtonColor' => '#d33',
-                'timer' => '300000',              
+                'timer' => '300000',
                 'onConfirmed' => 'confirmNotificationDeletion'
             ]);
         } catch (\Throwable $th) {
@@ -90,11 +90,11 @@ class NotificationComponent extends Component
 
     public function confirmNotificationDeletion() {
         try {
-        fn () => DB::BeginTransaction();
+        DB::BeginTransaction();
         return  Notification::destroy($this->notificationId);
-        fn () => DB::commit();
+        DB::commit();
         } catch (\Throwable $th) {
-        fn () => DB::rollBack();
+        DB::rollBack();
         $this->alert('error', 'ERRO', [
                 'toast' =>false,
                 'position' =>'center',

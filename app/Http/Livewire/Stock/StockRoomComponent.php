@@ -11,7 +11,7 @@ use Livewire\WithPagination;
 
 class StockRoomComponent extends Component
 {
-    use LivewireAlert, WithPagination;  
+    use LivewireAlert, WithPagination;
     public $item, $itemName,$selectedItem,$products ,$stockroomId, $itemId , $quantity , $description , $searcher , $status, $startdate ,$enddate;
     public int $product;
     protected $listeners = ['confirmItemDeletion'];
@@ -35,7 +35,7 @@ class StockRoomComponent extends Component
             return $data = StockRoom::query()
             ->where('hotel_id', auth()->user()->company_id)
             ->whereBetween("created_at",[$this->startdate,$this->enddate])
-            ->paginate(6);      
+            ->paginate(6);
 
          }else{
              return $data = StockRoom::query()
@@ -185,7 +185,7 @@ class StockRoomComponent extends Component
 
     public function edit ($itemId) {
         try {
-            $this->itemId = $itemId;     
+            $this->itemId = $itemId;
             $this->selectedItem = true;
             $this->status = true;
             $stockItem = StockRoom::find($this->itemId);
@@ -207,7 +207,7 @@ class StockRoomComponent extends Component
 
     public function update (StockRoom $data) {
         try {
-        fn () => DB::BeginTransaction();
+        DB::BeginTransaction();
          $data->find($this->itemId)->update([
             'quantity' =>$this->quantity,
             'item' =>$this->itemName,
@@ -216,7 +216,7 @@ class StockRoomComponent extends Component
             "user_id" =>auth()->user()->id
          ]);
 
-        fn () => DB::commit();
+        DB::commit();
          $this->alert('success', 'SUCESSO', [
             'toast' =>false,
             'position'=>'center',
@@ -227,7 +227,7 @@ class StockRoomComponent extends Component
             'text'=>'Item atualizado com sucesso!'
             ]);
         } catch (\Throwable $th) {
-        fn () => DB::rollBack();
+        DB::rollBack();
         $this->alert('success', 'SUCESSO', [
                 'toast' =>false,
                 'position'=>'center',
@@ -241,7 +241,7 @@ class StockRoomComponent extends Component
     }
 
     public function buttonAddItem () {
-        try {            
+        try {
         $this->selectedItem = false;
         } catch (\Throwable $th) {
         $this->alert('success', 'SUCESSO', [

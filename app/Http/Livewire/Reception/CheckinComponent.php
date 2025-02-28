@@ -24,17 +24,17 @@ class CheckinComponent extends Component
     public function getCheckins () {
         try {
             if ($this->searcher) {
-                return Checkin::query() ->join('reservations', 'checkins.reservation_id', 'reservations.id') 
+                return Checkin::query() ->join('reservations', 'checkins.reservation_id', 'reservations.id')
                 ->join('guests', 'reservations.guest_id', 'guests.id')
-                ->where('guests.firstname', 'like', '%' .$this->searcher.'%')              
-                ->orWhere('guests.binumber',$this->searcher)              
-                ->orWhere('guests.phone',$this->searcher)              
+                ->where('guests.firstname', 'like', '%' .$this->searcher.'%')
+                ->orWhere('guests.binumber',$this->searcher)
+                ->orWhere('guests.phone',$this->searcher)
                 ->orderBy('checkins.id', 'DESC')
                 ->select(['checkins.*', 'checkins.created_at As checkinDate','checkins.id As checkinId', 'guests.*', 'reservations.*'])
                 ->paginate(6);
 
             }else if ($this->startdate and $this->enddate) {
-                return Checkin::query()               
+                return Checkin::query()
                 ->join('reservations', 'checkins.reservation_id', 'reservations.id')
                 ->join('guests', 'reservations.guest_id', 'guests.id')
                 ->whereBetween('checkins.created_at',[$this->startdate,$this->enddate])
@@ -43,7 +43,7 @@ class CheckinComponent extends Component
                 ->paginate(6);
 
             }else{
-                return Checkin::query()               
+                return Checkin::query()
                 ->join('reservations', 'checkins.reservation_id', 'reservations.id')
                 ->join('guests', 'reservations.guest_id', 'guests.id')
                 ->orderBy('checkins.id', 'DESC')
@@ -101,7 +101,7 @@ class CheckinComponent extends Component
             ->join('reservations', 'checkins.reservation_id', 'reservations.id')
             ->first();
 
-            fn () => DB::BeginTransaction();
+            DB::BeginTransaction();
             //Tornar o quarto disponível
             $room->query()->find($checkinDetails->room_id)
             ->update([
@@ -116,7 +116,7 @@ class CheckinComponent extends Component
             $checkout->query()->create([
                 'reservation_id' => $checkinDetails->reservation_id,
             ]);
-            fn () => DB::commit();
+            DB::commit();
             $this->alert('success', 'SUCESSO', [
                 'toast' =>false,
                 'position'=>'center',
@@ -127,7 +127,7 @@ class CheckinComponent extends Component
                 'text'=>'Checkout realizado com sucesso!'
             ]);
         } catch (\Throwable $th) {
-        fn () => DB::rollBack();
+        DB::rollBack();
         $this->alert('error', 'ERRO', [
                 'toast' =>false,
                 'position'=>'center',
@@ -154,7 +154,7 @@ class CheckinComponent extends Component
                 'confirmButtonText' => 'Confirmar',
                 'confirmButtonColor' => '#3085d6',
                 'cancelButtonColor' => '#d33',
-                'timer' => '300000',              
+                'timer' => '300000',
                 'onConfirmed' => 'confirmCheckinDeletion'
             ]);
         } catch (\Throwable $th) {
@@ -173,11 +173,11 @@ class CheckinComponent extends Component
 
         public function confirmCheckinDeletion () {
             try {
-            fn () => DB::beginTransaction();
+            DB::beginTransaction();
             return Checkin::destroy($this->checkinId);
-            fn () => DB::commit();
+            DB::commit();
             } catch (\Throwable $th) {
-            fn () => DB::rollBack();
+            DB::rollBack();
             $this->alert('error', 'ERRO', [
                 'toast' =>false,
                 'position'=>'center',

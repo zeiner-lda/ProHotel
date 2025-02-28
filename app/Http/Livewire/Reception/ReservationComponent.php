@@ -138,7 +138,7 @@ class ReservationComponent extends Component
                     'text'=>"Especifique a quantidade de dias que o hóspede ficará hospedado!"
                  ]);
             }else{
-              fn () => DB::BeginTransaction();
+              DB::BeginTransaction();
                //Atualizar dados da reserva do quarto
                $reservation->query()->find($this->reservationId)->update([
                 'reservation_status' =>'confirmed',
@@ -173,10 +173,10 @@ class ReservationComponent extends Component
                fn () => print($dompdf),
                "relatório-de-checkin_".md5(\Carbon\Carbon::now()->format('d-m-y')).".pdf"
            );
-           fn () => DB::commit();
+           DB::commit();
            $this->reset(["payment_method", "price", "quantityOfDays", "notes"]);
         } catch (\Throwable $th) {
-           fn () => DB::rollBack();
+           DB::rollBack();
         $this->alert('error', 'ERRO', [
                 'toast' =>false,
                 'position'=>'center',
@@ -222,11 +222,11 @@ class ReservationComponent extends Component
 
     public function confirmCancelReservation (Reservation $reservation) {
         try {
-       fn () => DB::beginTransaction();
+       DB::beginTransaction();
         $reservation->destroy([$this->id]);
-       fn () => DB::commit();
+       DB::commit();
         } catch (\Throwable $th) {
-       fn () => DB::commit();
+       DB::commit();
         $this->alert('error', 'ERRO', [
                 'toast' =>false,
                 'position'=>'center',
