@@ -23,7 +23,6 @@ return new class extends Migration
             $table->enum("status",["available" , "occupied"]);
             $table->longText("description");
             $table->string("photo");
-            $table->foreignIdFor(RoomDetail::class);
             $table->foreign('hotel_id')->references('id')->on('companies');
             $table->softDeletes();
             $table->timestamps();

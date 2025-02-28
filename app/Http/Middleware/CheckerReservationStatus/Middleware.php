@@ -1,14 +1,13 @@
 <?php
 
 namespace App\Http\Middleware\CheckerReservationStatus;
-use \App\Models\{Room };
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class Middleware
 {
-    public $data, $avaliableRooms, $currentDate, $currentHour ,$rervedRooms;
+    public $referenceHourSubtracting12hours, $dataToUpdateBeacauseTheyWasExpired, $data, $avaliableRooms, $currentDate, $currentHour ,$rervedRooms;
 
     public function handle(Request $request, Closure $next)
     {
@@ -21,21 +20,32 @@ class Middleware
 
     public function checkAllReservationtatusAndMakeUpdates () {
         try {
-            $data = \App\Models\Reservation::query()->select(['reservation_status', 'reservation_hour'])->get();
             $this->currentHour = \Carbon\Carbon::now();
-            $this->rervedRooms = \App\Models\Reservation::query()->where("reservation_status","pending")
-            ->where('antecipated_reservation_date',null)
-            ->get();
+            $this->rervedRooms = \App\Models\Reservation::query()->where("reservation_status","pending")->where('antecipated_reservation_date',null)->get();
 
-            if ($this->rervedRooms) {
-                 $referenceHour = $this->currentHour->subHours(12)->format('H:i:s');  // Hora atual menos 12 horas
-                 // Realiza a atualização
-                     DB::BeginTransaction();
-                     \App\Models\Reservation::where("reservation_hour", '>=', $referenceHour)
-                     ->update([
-                       "reservation_status" => 'expired'
-                      ]);
-                    DB::commit();
+            if (isset($this->rervedRooms)) {
+                $referenceHourSubtracting12hours = $this->currentHour->subHours(12)->format('H:i:s');  // Hora atual menos 12 horas
+
+                // Realiza a atualização
+                    $this->dataToUpdateBeacauseTheyWasExpired = DB::table('reservations')
+                    ->whereTime("reservation_hour", '>=', $this->referenceHourSubtracting12hours)
+                    ->where("reservation_status" , "pending")
+                    ->get();
+
+                     foreach ($this->dataToUpdateBeacauseTheyWasExpired as $reservation) {
+                         DB::BeginTransaction();
+                         \App\Models\Reservation::whereTime("reservation_hour", '>=', $this->referenceHourSubtracting12hours)
+                         ->update([
+                           "reservation_status" => 'expired'
+                          ]);
+
+                          //Desocupar o quarto automaticamente em caso de reserva expirada
+                          \App\Models\Room::query()->where("id", $reservation->room_id)
+                          ->update([
+                            "status" => "available"
+                          ]);
+                        DB::commit();
+                     }
 
             }
         } catch (\Throwable $th) {
@@ -48,7 +58,7 @@ class Middleware
         try {
             $this->currentDate = \Carbon\Carbon::now()->format('Y-m-d');
             $this->data = \App\Models\Reservation::query()->where('antecipated_reservation_date', '!=',null)->get();
-            $this->avaliableRooms = Room::query()->get();
+            $this->avaliableRooms = \App\Models\Room::query()->get();
 
             foreach ($this->data as $antecipatedReservation) {
                 if ($this->currentDate == $antecipatedReservation->antecipated_reservation_date) {
