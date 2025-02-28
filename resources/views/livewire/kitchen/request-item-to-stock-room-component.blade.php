@@ -2,7 +2,7 @@
 <div>
     @section("title" , "Cozinha | Produtos")
         <div class="container-scroller">
-        <x-kitchen.modal-reduce-replace-item />
+        <x-kitchen.modal-reduce-replace-item :status=$status />
         <livewire:admin.top-bar-component />
           <div class="container-fluid page-body-wrapper">
 
@@ -43,7 +43,7 @@
                                         <td>{{ $item->created_at ?? '' }}</td>
                                         <td>
                                           <div class="d-flex align-items-center justify-content-center gap-1">
-                                              <button wire:click='requestItem({{ $item->id }})'  
+                                              <button wire:click='requestItem({{ $item->id }})'
                                                 data-bs-target="#modal"
                                                 data-bs-toggle="modal"
                                                 class=' btn btn-sm btn-primary'>
@@ -51,7 +51,7 @@
                                                 <span>Solicitar</span>
                                               </button>
 
-                                              <button wire:click='restoreItem({{ $item->id }})' 
+                                              <button wire:click='restoreItem({{ $item->id }})'
                                                 data-bs-target="#modal"
                                                 data-bs-toggle="modal"
                                                 class=' btn btn-sm btn-info'>

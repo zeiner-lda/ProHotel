@@ -72,9 +72,9 @@ class RequestItemToStockRoomComponent extends Component
 
     public function restoreItem ($id, StockRoom $item) {
         try {
-            $this->id = $id;
+            $this->itemId = $id;
             $this->status = false;
-            $data =$item->find($id);
+            $data =$item->find($this->itemId);
             $this->itemRequested = $data->item;
             $this->quantity = $data->quantity;
         } catch (\Throwable $th) {
@@ -90,10 +90,10 @@ class RequestItemToStockRoomComponent extends Component
         }
     }
 
-    public function saveItemRequest (StockRoom $item) {
+    public function saveRequestItem (StockRoom $item) {
         try {
         DB::BeginTransaction();
-        $item->find($this->id)->decrement('quantity', $this->quantity);
+        $item->find($this->itemId)->decrement('quantity', $this->quantity);
         DB::commit();
         $this->alert('success', 'SUCESSO', [
             'toast' =>false,
@@ -118,10 +118,10 @@ class RequestItemToStockRoomComponent extends Component
         }
     }
 
-    public function saveItemRestore (StockRoom $item) {
+    public function saveRestoreItem () {
         try {
         DB::BeginTransaction();
-        $item->find($this->id)->increment('quantity', $this->quantity);
+        StockRoom::find($this->itemId)->increment('quantity', $this->quantity);
         DB::commit();
         $this->alert('success', 'SUCESSO', [
             'toast' =>false,
