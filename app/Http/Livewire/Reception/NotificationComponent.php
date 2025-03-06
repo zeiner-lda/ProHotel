@@ -22,24 +22,21 @@ class NotificationComponent extends Component
     public function getReservationNotifications () {
         try {
             if ($this->searcher) {
-                return Notification::query()
-                ->where('hotel_id',auth()->user()->company_id)
+                return Notification::query()->where('hotel_id',auth()->user()->company_id)
                 ->where('notification_title', 'like', '%'.$this->searcher.'%')
                 ->orWhere('notification', 'like', '%'.$this->searcher.'%')
                 ->where('status',true)
                 ->orderBy('id', 'DESC')
                 ->paginate(6);
             }else if($this->startdate && $this->enddate){
-                return Notification::query()
-                ->where('hotel_id',auth()->user()->company_id)
+                return Notification::query()->where('hotel_id',auth()->user()->company_id)
                 ->where('created_at',[$this->startdate,$this->enddate])
                 ->where('status',true)
                 ->orderBy('id', 'DESC')
                 ->paginate(6);
 
             }else{
-                return Notification::query()
-                ->where('hotel_id',auth()->user()->company_id)
+                return Notification::query()->where('hotel_id',auth()->user()->company_id)
                 ->where('status',true)
                 ->orderBy('id', 'DESC')
                 ->paginate(6);

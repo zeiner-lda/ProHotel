@@ -81,7 +81,7 @@ class UserComponent extends Component
                 'company_id' => auth()->user()->company_id,
                 'profile' =>$this->profile
             ]);
-           fn () =>  DB::commit();
+            DB::commit();
             $this->alert('success', 'SUCESSO', [
                 'toast' =>false,
                 'position'=>'center',
@@ -147,7 +147,7 @@ class UserComponent extends Component
         public function confirmUserDeletion (User $user) {
             try {
             DB::BeginTransaction();
-            User::query()->findorFail($this->userId)->delete();
+            User::query()->find($this->userId)->delete();
             DB::commit();
             } catch (\Throwable $th) {
                 DB::rollBack();
@@ -171,7 +171,6 @@ class UserComponent extends Component
                $this->username = $user->username;
                $this->email = $user->email;
                $this->profile = $user->profile;
-
 
             } catch (\Throwable $th) {
                 $this->alert('error', 'ERRO', [

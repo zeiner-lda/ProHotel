@@ -13,9 +13,9 @@
 
                       <div class='form-group'>
                         <label class='form-label'>Quantidade de dias</label>
-                        <select required  wire:change='chooseQuantityOfDays' wire:model='quantityOfDays' class="form-select text-dark" id="">
+                        <select required  wire:model='quantityOfDays' class="form-select text-dark" id="">
                             <option value='0'>Selecionar</option>
-                            @for ($i=1; $i<=15; $i++)
+                            @for ($i=1; $i <= 30; $i++)
                             <option value="{{$i}}">{{$i}}</option>
                             @endfor
                         </select>

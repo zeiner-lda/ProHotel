@@ -20,6 +20,7 @@ return new class extends Migration
             $table->double('status')->default(true);
             $table->enum('payment_method',["cash", "credit_card"])->nullable();
             $table->float('total_amount')->nullable();
+            $table->foreignId('hotel_id')->constrait()->onDelete("CASCADE"); 
             $table->softDeletes();
             $table->timestamps();
         });

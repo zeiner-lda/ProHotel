@@ -13,7 +13,8 @@ class Checkin extends Model
         'notes',
         'payment_method',
         'total_amount',
-        'status'
+        'status',
+        'hotel_id'
      ];
 
      public function reservation() {

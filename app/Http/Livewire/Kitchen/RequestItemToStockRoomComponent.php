@@ -15,11 +15,11 @@ class RequestItemToStockRoomComponent extends Component
     public function render()
     {
         return view('livewire.kitchen.request-item-to-stock-room-component',[
-        'avaliableItems' =>$this->getAvaliableProductsInStockRoom(),
+        'avaliableItems' =>$this->getAvailableProductsInStockRoom(),
         ])->layout('layouts.admin.app');
     }
 
-    public function getAvaliableProductsInStockRoom () {
+    public function getAvailableProductsInStockRoom () {
         try {
             if ($this->searcher) {
               return StockRoom::query()

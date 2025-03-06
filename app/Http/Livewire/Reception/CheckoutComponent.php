@@ -23,31 +23,32 @@ class CheckoutComponent extends Component
 
     public function getCheckouts () {
         try {
-           
+
             if ($this->searcher) {
-                return Checkout::query()          
-                ->join('reservations', 'checkouts.reservation_id', '=', 'reservations.id')
+                return Checkout::query()->join('reservations', 'checkouts.reservation_id', '=', 'reservations.id')
                 ->join('guests', 'reservations.guest_id', '=', 'guests.id')
-                ->where('guests.firstname', 'like', '%' .$this->searcher.'%')              
-                ->orWhere('guests.binumber',$this->searcher)              
-                ->orWhere('guests.phone',$this->searcher)    
+                ->where('guests.firstname', 'like', '%' .$this->searcher.'%')
+                ->orWhere('guests.binumber',$this->searcher)
+                ->orWhere('guests.phone',$this->searcher)
+                ->where('checkins.hotel_id', auth()->user()->company_id)
                 ->select(['reservations.*', 'guests.*', 'checkouts.*', 'checkouts.id As checkoutId' , 'checkouts.created_at As checkoutDate'])
                 ->orderBy('checkouts.id', 'DESC')
                 ->paginate(6);
 
             }else if ($this->startdate and $this->enddate) {
 
-                return Checkout::query()          
+                return Checkout::query()
                 ->join('reservations', 'checkouts.reservation_id', '=', 'reservations.id')
                 ->join('guests', 'reservations.guest_id', '=', 'guests.id')
+                ->where('checkouts.hotel_id', auth()->user()->company_id)
                 ->whereBetween('checkouts.created_at',[$this->startdate,$this->enddate])
                 ->select(['reservations.*', 'guests.*', 'checkouts.*', 'checkouts.id As checkoutId' , 'checkouts.created_at As checkoutDate'])
                 ->orderBy('checkouts.id', 'DESC')
                 ->paginate(6);
             }else{
-                return Checkout::query()          
-                ->join('reservations', 'checkouts.reservation_id', '=', 'reservations.id')
+                return Checkout::query()->join('reservations', 'checkouts.reservation_id', '=', 'reservations.id')
                 ->join('guests', 'reservations.guest_id', '=', 'guests.id')
+                ->where('checkouts.hotel_id', auth()->user()->company_id)
                 ->select(['reservations.*', 'guests.*', 'checkouts.*', 'checkouts.id As checkoutId' , 'checkouts.created_at As checkoutDate'])
                 ->orderBy('checkouts.id', 'DESC')
                 ->paginate(6);
@@ -81,7 +82,7 @@ class CheckoutComponent extends Component
                 'confirmButtonText' => 'Confirmar',
                 'confirmButtonColor' => '#3085d6',
                 'cancelButtonColor' => '#d33',
-                'timer' => '300000',              
+                'timer' => '300000',
                 'onConfirmed' => 'confirmCheckoutDeletion'
             ]);
         } catch (\Throwable $th) {

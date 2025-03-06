@@ -77,7 +77,7 @@ class HotelComponent extends Component
 
             if ($this->photo) {
             $this->fileName = md5($this->photo->getClientOriginalName()).'.'.$this->photo->getClientOriginalExtension();
-            $this->file = $this->photo->storeAs($this->fileName);
+            $this->file = $this->photo->storeAs("", $this->fileName);
             }
             $hotel->query()->create([
                 "companyname" =>$this->companyname,
@@ -94,7 +94,6 @@ class HotelComponent extends Component
                 'position' =>'center',
                 'showConfirmButton' =>true,
                 'confirmButtonText' =>'OK',
-                'timer' => 300000,
                 'allowOutsideClick' => false,
                 'text'=> "Registo salvo com sucesso!"
             ]);

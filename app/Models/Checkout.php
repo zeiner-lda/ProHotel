@@ -9,9 +9,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class Checkout extends Model
 {
     use HasFactory;
-    protected $fillable = [
-    'reservation_id'
-    ];
+    protected $fillable = ['reservation_id' , 'hotel_id'];
 
     public function reservation(): BelongsTo {
         return $this->belongsTo(Reservation::class);

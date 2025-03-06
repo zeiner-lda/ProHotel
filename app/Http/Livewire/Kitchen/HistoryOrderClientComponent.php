@@ -2,10 +2,13 @@
 
 namespace App\Http\Livewire\Kitchen;
 use App\Models\{OrderClient};
+use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
+use Livewire\WithPagination;
 
 class HistoryOrderClientComponent extends Component
 {
+    use LivewireAlert, WithPagination;
     public $orderId,$order,$searcher, $startdate,$enddate, $status;
     public function render()
     {
@@ -19,10 +22,10 @@ class HistoryOrderClientComponent extends Component
             if ($this->searcher) {
                 return OrderClient::query()->where("hotel_id", auth()->user()->company_id)
                 ->where("order_name", "like", "%". $this->searcher . "%")
-                ->where("status", true)         
+                ->where("status", true)
                 ->where("order_status", "finished")
                 ->orderBy("id", "DESC")
-                ->paginate(6);                
+                ->paginate(6);
 
             }else if ($this->startdate && $this->enddate)  {
                 return OrderClient::query()->where("hotel_id", auth()->user()->company_id)
@@ -31,14 +34,14 @@ class HistoryOrderClientComponent extends Component
                 ->where("order_status", "finished")
                 ->orderBy("id", "DESC")
                 ->paginate(6);
-               
+
             }else{
                 return OrderClient::query()->where("hotel_id", auth()->user()->company_id)
-                ->where("status", true)     
+                ->where("status", true)
                 ->where("order_status", "finished")
                 ->orderBy("id", "DESC")
                 ->paginate(6);
-            }             
+            }
 
         } catch (\Throwable $th) {
             $this->alert('error', 'ERRO', [

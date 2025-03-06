@@ -26,6 +26,7 @@ class TestimonialComponent extends Component
         try {
             if ($this->searcher) {
                 return Testimonial::query()->where('text', 'like', '%'.$this->searcher.'%')
+                ->where('hotel_id', auth()->user()->company_id)
                 ->with('user')
                 ->with('hotel')
                 ->select(['testimonials.*', 'testimonials.id As testimonialId', 'users.*', 'companies.*'])
@@ -34,6 +35,7 @@ class TestimonialComponent extends Component
                 return Testimonial::query()
                 ->join('users', 'testimonials.user_id', 'users.id')
                 ->join('companies', 'testimonials.hotel_id', 'companies.id')
+                ->where('hotel_id', auth()->user()->company_id)
                 ->select(['testimonials.*', 'testimonials.id As testimonialId', 'users.*', 'companies.*'])
                 ->paginate(6);
             }

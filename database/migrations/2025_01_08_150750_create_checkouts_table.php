@@ -13,8 +13,9 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('checkouts', function (Blueprint $table) {
-            $table->id();            
+            $table->id();
             $table->foreignIdFor(Reservation::class);
+            $table->foreignId('hotel_id')->constrait()->onDelete("CASCADE");
             $table->timestamps();
         });
     }

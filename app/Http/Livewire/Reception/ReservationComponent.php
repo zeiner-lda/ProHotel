@@ -142,7 +142,8 @@ class ReservationComponent extends Component
                 'reservation_id' =>$this->reservationId,
                 'payment_method' =>$this->payment_method,
                 'total_amount' =>$this->price,
-                 'notes' =>$this->notes
+                'hotel_id' => auth()->user()->company_id,
+                'notes' =>$this->notes
                ]);
 
                $checkinReportData = Checkin::find($data->id);

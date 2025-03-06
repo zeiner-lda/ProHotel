@@ -14,14 +14,14 @@ class CheckAllOrdersThatIsReady
     public function handle(Request $request, Closure $next)
     {
         try {
-            $this->checkerDishes();
+            $this->checkerOfDishesAndItems();
             return $next($request);
         }catch(Exception $ex){
             return back()->with(['error' => $ex->GetMessage()],500);
         }
     }
 
-    public function checkerDishes() {
+    public function checkerOfDishesAndItems() {
         try {
             $this->orders = \App\Models\OrderClient::query()->where("order_status", "finished")->get();
             if ($this->orders) {

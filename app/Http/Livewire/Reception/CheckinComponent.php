@@ -24,28 +24,30 @@ class CheckinComponent extends Component
     public function getCheckins () {
         try {
             if ($this->searcher) {
-                return Checkin::query() ->join('reservations', 'checkins.reservation_id', 'reservations.id')
+                return Checkin::query()->join('reservations', 'checkins.reservation_id', 'reservations.id')
                 ->join('guests', 'reservations.guest_id', 'guests.id')
                 ->where('guests.firstname', 'like', '%' .$this->searcher.'%')
                 ->orWhere('guests.binumber',$this->searcher)
                 ->orWhere('guests.phone',$this->searcher)
+                ->where('checkins.hotel_id', auth()->user()->company_id)
                 ->orderBy('checkins.id', 'DESC')
                 ->select(['checkins.*', 'checkins.created_at As checkinDate','checkins.id As checkinId', 'guests.*', 'reservations.*'])
                 ->paginate(6);
 
             }else if ($this->startdate and $this->enddate) {
-                return Checkin::query()
-                ->join('reservations', 'checkins.reservation_id', 'reservations.id')
+                return Checkin::query()->join('reservations', 'checkins.reservation_id', 'reservations.id')
                 ->join('guests', 'reservations.guest_id', 'guests.id')
+                ->where('checkins.hotel_id', auth()->user()->company_id)
                 ->whereBetween('checkins.created_at',[$this->startdate,$this->enddate])
                 ->orderBy('checkins.id', 'DESC')
                 ->select(['checkins.*', 'checkins.created_at As checkinDate','checkins.id As checkinId', 'guests.*', 'reservations.*'])
                 ->paginate(6);
 
             }else{
-                return Checkin::query()
-                ->join('reservations', 'checkins.reservation_id', 'reservations.id')
+
+                return Checkin::query()->join('reservations', 'checkins.reservation_id', 'reservations.id')
                 ->join('guests', 'reservations.guest_id', 'guests.id')
+                ->where('checkins.hotel_id', auth()->user()->company_id)
                 ->orderBy('checkins.id', 'DESC')
                 ->select(['checkins.*', 'checkins.created_at As checkinDate','checkins.id As checkinId', 'guests.*', 'reservations.*'])
                 ->paginate(6);
@@ -99,6 +101,7 @@ class CheckinComponent extends Component
         try {
             $checkinDetails = Checkin::find($this->checkinId)
             ->join('reservations', 'checkins.reservation_id', 'reservations.id')
+            ->where('checkins.hotel_id' , auth()->user()->company_id)
             ->first();
 
             DB::BeginTransaction();
@@ -114,6 +117,7 @@ class CheckinComponent extends Component
             ]);
 
             $checkout->query()->create([
+                'hotel_id' => auth()->user()->company_id,
                 'reservation_id' => $checkinDetails->reservation_id,
             ]);
             DB::commit();
