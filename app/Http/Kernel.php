@@ -64,6 +64,7 @@ class Kernel extends HttpKernel
         "only.reception.access" => \App\Http\Middleware\OnlyReceptionAccessMiddleware::class,
         "only.stockroom.access" => \App\Http\Middleware\OnlyStockRoomAccessMiddleware::class,
         "only.kitchen.access" => \App\Http\Middleware\OnlyKitchenAccessMiddleware::class,
+        "only.g_admin.access" => \App\Http\Middleware\OnlyGeneralAdminAccess::class,
         'can' => \Illuminate\Auth\Middleware\Authorize::class,
         'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
         'password.confirm' => \Illuminate\Auth\Middleware\RequirePassword::class,
