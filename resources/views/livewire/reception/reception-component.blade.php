@@ -7,11 +7,7 @@
             <x-reception.side-bar />
             <div class="main-panel">
               <div class="content-wrapper">
-                <x-reception.stats
-                  :reservationsCounter='$reservationsCounter'
-                  :roomsCounter='$roomsCounter'
-                  :testimonialsCounter='$testimonialsCounter'
-                />
+                <x-reception.stats :availableRooms='$availableRooms' :occupiedRooms='$occupiedRooms' :reservationsCounter='$reservationsCounter' :roomsCounter='$roomsCounter' :testimonialsCounter='$testimonialsCounter' />
                 <x-admin.footer />
               </div>
             </div>

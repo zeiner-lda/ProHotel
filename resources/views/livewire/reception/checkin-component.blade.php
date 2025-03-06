@@ -29,7 +29,7 @@
                               <thead>
                                 <tr>
                                   <th>Data de checkin</th>
-                                  <th>Quantidade dias</th>                                 
+                                  <th>Quantidade dias</th>
                                   <th>OBS</th>
                                   <th>Cliente</th>
                                   <th>Número do BI</th>
@@ -68,11 +68,11 @@
                                           <div class="d-flex align-items-center justify-content-center gap-1">
                                               <button wire:click='makeCheckout({{ $checkin->checkinId }})' class='{{ $checkin->status  ? 'disabled' : '' }} btn btn-sm btn-info'>
                                               <i class='fa fa-solid fa-edit'></i>
-                                                <span>Fazer check-out</span>  
+                                                <span>Fazer check-out</span>
                                             </button>
 
                                             <button wire:click='deleteCheckin({{ $checkin->checkinId }})' class='btn btn-sm btn-danger'>
-                                                <span>Eliminar</span>  
+                                                <span>Eliminar</span>
                                                 <i class='fa fa-solid fa-trash-alt'></i>
                                             </button>
                                           </div>

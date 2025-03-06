@@ -20,7 +20,7 @@ return new class extends Migration
             $table->integer("bed_quantity");
             $table->integer("bath_quantity");
             $table->float("price_pernight");
-            $table->enum("status",["available" , "occupied"]);
+            $table->enum("status",["available" , "occupied"])->default("available");
             $table->longText("description");
             $table->string("photo");
             $table->foreign('hotel_id')->references('id')->on('companies');

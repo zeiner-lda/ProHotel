@@ -21,10 +21,44 @@ class ReceptionComponent extends Component
     public function render()
     {
         return view('livewire.reception.reception-component',[
-            "reservationsCounter" =>  $this->getReservationsCounter($this->reservations),
-            "testimonialsCounter" => $this->getTestimonialsCounter($this->testimonials),
-            "roomsCounter" => $this->getRoomsCounter($this->rooms)
+            "reservationsCounter" =>$this->getReservationsCounter($this->reservations),
+            "testimonialsCounter" =>$this->getTestimonialsCounter($this->testimonials),
+            "roomsCounter" =>$this->getRoomsCounter($this->rooms),
+            "occupiedRooms" =>$this->getOccupiedRoomsCounter($this->rooms),
+            "availableRooms" =>$this->getAvailableRoomsCounter($this->rooms)
         ])->layout('layouts.admin.app');
+    }
+
+    public function getAvailableRoomsCounter (Room $roomsCounter) {
+        try {
+            return $roomsCounter->query()->where("hotel_id", auth()->user()->company_id)->where('status', 'available')->count();
+        } catch (\Throwable $th) {
+        $this->alert('error', 'ERRO', [
+                'toast' =>false,
+                'position' =>'center',
+                'showConfirmButton' =>true,
+                'confirmButtonText' =>'OK',
+                'timer' => 300000,
+                'allowOutsideClick' => false,
+                'text'=> 'Ocorreu o seguinte erro: '.$th->getMessage()
+            ]);
+        }
+    }
+
+    public function getOccupiedRoomsCounter (Room $roomsCounter) {
+        try {
+            return $roomsCounter->query()->where("hotel_id", auth()->user()->company_id)->where('status', 'occupied')->count();
+        } catch (\Throwable $th) {
+        $this->alert('error', 'ERRO', [
+                'toast' =>false,
+                'position' =>'center',
+                'showConfirmButton' =>true,
+                'confirmButtonText' =>'OK',
+                'timer' => 300000,
+                'allowOutsideClick' => false,
+                'text'=> 'Ocorreu o seguinte erro: '.$th->getMessage()
+            ]);
+        }
     }
 
     public function getReservationsCounter (Reservation $dataCounter) {
@@ -45,10 +79,9 @@ class ReceptionComponent extends Component
         }
     }
 
-    public function getRoomsCounter (Room $dataCounter) {
+    public function getRoomsCounter (Room $roomsCounter) {
         try {
-           return $dataCounter->query()->where("hotel_id", auth()->user()->company_id)
-           ->count();
+           return $roomsCounter->query()->where("hotel_id", auth()->user()->company_id)->count();
         } catch (\Throwable $th) {
             $this->alert('error', 'ERRO', [
                 'toast' =>false,
@@ -62,9 +95,9 @@ class ReceptionComponent extends Component
         }
     }
 
-    public function getTestimonialsCounter (Testimonial $dataCounter) {
+    public function getTestimonialsCounter (Testimonial $testimoniesCounter) {
         try {
-            return $dataCounter::query()->where("hotel_id", auth()->user()->company_id)->count();
+            return $testimoniesCounter::query()->where("hotel_id", auth()->user()->company_id)->count();
         } catch (\Throwable $th) {
             $this->alert('error', 'ERRO', [
             'toast' =>false,

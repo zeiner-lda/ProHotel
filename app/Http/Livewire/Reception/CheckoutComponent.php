@@ -100,7 +100,7 @@ class CheckoutComponent extends Component
 
     public function confirmCheckoutDeletion () {
         try {
-            DB::BeginTransaction();
+           DB::BeginTransaction();
            Checkout::destroy($this->checkoutId);
            DB::commit();
         } catch (\Throwable $th) {
