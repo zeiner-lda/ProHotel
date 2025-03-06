@@ -26,30 +26,33 @@ class CheckinComponent extends Component
             if ($this->searcher) {
                 return Checkin::query()->join('reservations', 'checkins.reservation_id', 'reservations.id')
                 ->join('guests', 'reservations.guest_id', 'guests.id')
+                ->join('rooms', 'reservations.room_id', 'rooms.id')
                 ->where('guests.firstname', 'like', '%' .$this->searcher.'%')
                 ->orWhere('guests.binumber',$this->searcher)
                 ->orWhere('guests.phone',$this->searcher)
                 ->where('checkins.hotel_id', auth()->user()->company_id)
                 ->orderBy('checkins.id', 'DESC')
-                ->select(['checkins.*', 'checkins.created_at As checkinDate','checkins.id As checkinId', 'guests.*', 'reservations.*'])
+                ->select(['checkins.*', 'rooms.*', 'checkins.created_at As checkinDate','checkins.id As checkinId', 'guests.*', 'reservations.*'])
                 ->paginate(6);
 
             }else if ($this->startdate and $this->enddate) {
                 return Checkin::query()->join('reservations', 'checkins.reservation_id', 'reservations.id')
                 ->join('guests', 'reservations.guest_id', 'guests.id')
+                ->join('rooms', 'reservations.room_id', 'rooms.id')
                 ->where('checkins.hotel_id', auth()->user()->company_id)
                 ->whereBetween('checkins.created_at',[$this->startdate,$this->enddate])
                 ->orderBy('checkins.id', 'DESC')
-                ->select(['checkins.*', 'checkins.created_at As checkinDate','checkins.id As checkinId', 'guests.*', 'reservations.*'])
+                ->select(['checkins.*', 'rooms.*', 'checkins.created_at As checkinDate','checkins.id As checkinId', 'guests.*', 'reservations.*'])
                 ->paginate(6);
 
             }else{
 
                 return Checkin::query()->join('reservations', 'checkins.reservation_id', 'reservations.id')
                 ->join('guests', 'reservations.guest_id', 'guests.id')
+                ->join('rooms', 'reservations.room_id', 'rooms.id')
                 ->where('checkins.hotel_id', auth()->user()->company_id)
                 ->orderBy('checkins.id', 'DESC')
-                ->select(['checkins.*', 'checkins.created_at As checkinDate','checkins.id As checkinId', 'guests.*', 'reservations.*'])
+                ->select(['checkins.*', 'rooms.*', 'checkins.created_at As checkinDate','checkins.id As checkinId', 'guests.*', 'reservations.*'])
                 ->paginate(6);
             }
 

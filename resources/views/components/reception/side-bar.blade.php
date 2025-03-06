@@ -20,7 +20,7 @@
           <li class="nav-item {{Route::current()->getName() == "dashboard.reception.index" ? "bg-primary  rounded" : ""}}">
             <a  class=" nav-link" href="{{ route("dashboard.reception.index") }}">
               <span class="{{ Route::current()->getName() == "dashboard.reception.index" ? 'text-white' : '' }} menu-title">Dashboard</span>
-              <i class="{{ Route::current()->getName() == "dashboard.reception.index" ? 'text-white' : '' }} mdi mdi-home menu-icon"></i>
+              <i class="{{ Route::current()->getName() == "dashboard.reception.index" ? 'text-white' : '' }} fa fa-solid fa-home menu-icon menu-icon"></i>
             </a>
           </li>
           <li class="nav-item {{Route::current()->getName() == "reception.reservations" ? "bg-primary rounded" : ""}}">

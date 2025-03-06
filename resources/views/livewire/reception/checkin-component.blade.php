@@ -37,6 +37,7 @@
                                   <th>Morada</th>
                                   <th class='text-center'>Status</th>
                                   <th>Método pagamento</th>
+                                  <th>Destino/Quarto</th>
                                   <th>Total</th>
                                   <th class="text-center">Opções</th>
                                 </tr>
@@ -62,8 +63,8 @@
                                                 <span>Cartão de crédito</span>
                                             @endif
                                         </td>
+                                        <td class='text-center'>{{ $checkin->room_number ?? '' }}</td>
                                         <td>{{ number_format($checkin->total_amount, 2, ',', ',') ?? 'N/D' }}</td>
-
                                         <td>
                                           <div class="d-flex align-items-center justify-content-center gap-1">
                                               <button wire:click='makeCheckout({{ $checkin->checkinId }})' class='{{ $checkin->status  ? 'disabled' : '' }} btn btn-sm btn-info'>
