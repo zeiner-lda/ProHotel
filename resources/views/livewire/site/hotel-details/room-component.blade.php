@@ -15,7 +15,7 @@
 
     }
         </style>
-        <div  id="quartos" class="col-md-12 py-5">
+        <div  id="quartos" class="col-md-10 container py-5">
             <div class="container-fluid">
                 <div class="text-center " >
                     <h6 class="section-title text-center text-primary text-uppercase">Quartos</h6>
