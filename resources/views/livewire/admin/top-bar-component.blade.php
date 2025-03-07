@@ -32,7 +32,13 @@
                 </div>
             </a>
             <div class="dropdown-menu navbar-dropdown" aria-labelledby="profileDropdown">
+                @if(auth()->user()->profile == 'admin')
                 <a href='{{ route('admin.profile') }}' class="dropdown-item">
+                @elseif(auth()->user()->profile == 'g_admin')
+                <a href='{{ route('g_admin.profile') }}' class="dropdown-item">
+                @else
+                <a class="dropdown-item">
+                @endif
                 <i class="fa fa-solid fa-user me-2 text-success"></i>Meu perfil
                 </a>
                 <div class="dropdown-divider"></div>
