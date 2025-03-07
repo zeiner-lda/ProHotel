@@ -1,7 +1,7 @@
 
 <div>
     @section("title" , "Lista de Utilizadores")
-    <x-admin.modal-form-user :status='$status' />
+    <x-admin.modal-form-user :profile='$profile' :status='$status' :username='$username' :firstname='$firstname' :lastname='$lastname' :telephone='$telephone'  />
         <div class="container-scroller">
             <livewire:admin.top-bar-component />
           <div class="container-fluid page-body-wrapper">
@@ -29,7 +29,7 @@
                               <thead>
                                 <tr>
                                   <th>Data de cadastro</th>
-                                  <th>Nome do utilizador</th>
+                                  <th>Nome do utilizador</th>                                 
                                   <th>Email</th>
                                   <th>Perfil</th>
                                   <th>Empresa</th>
@@ -42,7 +42,7 @@
                                 @foreach ($data as $user)
                                  <tr>
                                    <td>{{ $user->email ? $user->created_at : '' }}</td>
-                                    <td>{{ $user->username  ? $user->username : ''}}</td>
+                                    <td>{{ $user->username  ? $user->username : 'Hóspede'}}</td>                                    
                                     <td>{{ $user->email ? $user->email : '' }}</td>
                                     <td><span class='text-capitalize'>
                                       @if ($user->profile == 'admin')
@@ -53,9 +53,11 @@
                                       <span>Chefe de cozinha</span>
                                       @elseif ($user->profile == 'reception')
                                       <span>Recepção</span>
+                                      @elseif ($user->profile == 'guest')
+                                      <span>Cliente</span>
                                       @endif
                                     </td> </span>
-                                    <td>{{ isset($user->hotel->companyname)  ? $user->hotel->companyname  : ''}}</td>
+                                    <td>{{ isset($user->hotel->companyname)  ? $user->hotel->companyname  : 'N/D'}}</td>
                                     {{-- <td> <img src="" alt="foto" /></td>         --}}
                                     <td>
                                         <div class="d-flex align-items-center justify-content-center gap-1">
@@ -91,7 +93,7 @@
                     </div>
                   </div>
 
-                </div>
+
                 <x-admin.footer />
-              </div>
-    </div>
+
+</div>

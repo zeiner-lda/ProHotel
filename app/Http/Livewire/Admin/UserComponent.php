@@ -2,23 +2,29 @@
 
 namespace App\Http\Livewire\Admin;
 use App\Models\Company;
+use App\Models\Guest;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 use Livewire\WithPagination;
+use Illuminate\Validation\Rule;
 
 class UserComponent extends Component
 {
     use LivewireAlert, WithPagination;
-    public $userId, $user, $startdate,$enddate, $profile, $searcher, $status, $username, $email, $password;
+    public $userId, $user, $startdate,$enddate, $profile, $searcher, $status, $username, $email, $password,
+    $guest,$firstname, $lastname, $telephone;
     protected $listeners = ['confirmUserDeletion' =>'confirmUserDeletion'];
 
     protected $rules = [
         'username' =>'required',
         'email' =>'required |email|unique:users',
-        'password' =>'required',
-        'profile' =>'required'
+        'password' =>  'required',
+        'profile' =>'required',
+        'firstname' =>'required',
+        'lastname' =>'required',
+        'telephone' =>'required',
         ];
 
     protected $messages = [
@@ -27,7 +33,9 @@ class UserComponent extends Component
          "email.unique" => 'Email já cadastrado',
          "password.required" => 'Campo obrigatório',
          "profile.required" => 'Campo obrigatório',
-
+         "firstname.required" => 'Campo obrigatório',
+         "lastname.required" => 'Campo obrigatório',
+         "telephone.required" => 'Campo obrigatório',
         ];
 
     public function render()
@@ -42,18 +50,24 @@ class UserComponent extends Component
             try{
                 if ($this->searcher) {
                     return User::query()->where('username','like','%'.$this->searcher.'%')
-                    ->where('profile','<>','guest')
+                    ->where('profile','<>','g_admin')
+                    ->where('profile', '<>', 'guest')
+                    ->where('company_id', auth()->user()->company_id)
                     ->with('hotel')
+                      
                     ->paginate(6);
                 }else if ($this->startdate && $this->enddate){
-                    return User::query()->where('profile','<>','guest')
+                    return User::query()  ->where('profile','<>','g_admin')
+                    ->where('profile', '<>', 'guest')
                     ->whereBetween('created_at',[$this->startdate, $this->enddate])
-                    ->with('hotel')
+                    ->with('hotel')  
+                    ->where('company_id', auth()->user()->company_id)                
                     ->paginate(6);
                 }else{
-                    return User::query()
-                    ->where('profile','<>','guest')
-                    ->with('hotel')
+                    return User::query()->where('profile','<>','g_admin')
+                    ->with('hotel')     
+                    ->where('profile', '<>', 'guest')
+                    ->where('company_id', auth()->user()->company_id)
                     ->paginate(6);
                 }
             }catch(\Exception $ex){
@@ -163,14 +177,17 @@ class UserComponent extends Component
             }
         }
 
-        public function edit($userId) {
+        public function edit($userId, Guest $guest) {
             try {
                $this->status = true;
                $this->userId = $userId;
-               $user = User::findorFail($this->userId);
-               $this->username = $user->username;
-               $this->email = $user->email;
-               $this->profile = $user->profile;
+               $user = User::where('id',$this->userId)->with("personaldata")->first();
+               !is_null($user->username) ? $this->username = $user->username : '';
+               !is_null($user->email) ? $this->email = $user->email : '';
+               !is_null($user->profile) ? $this->profile = $user->profile : '';
+               !is_null($user->guest_id) ? $this->firstname = $user->personaldata->firstname : '';
+               !is_null($user->guest_id) ? $this->lastname = $user->personaldata->lastname : '';
+               !is_null($user->guest_id) ? $this->telephone = $user->personaldata->phone : '';
 
             } catch (\Throwable $th) {
                 $this->alert('error', 'ERRO', [
@@ -185,17 +202,36 @@ class UserComponent extends Component
             }
         }
 
-        public function update () {
+        public function update () {         
+       
             try {
-            $user = User::find($this->userId);
-            DB::BeginTransaction();
-            User::find($this->userId)->update([
-            'username' =>$this->username,
-            'email' =>$this->email,
-            'profile' =>$this->profile,
-            'password' => $this->password ? bcrypt($this->password) : $user->passord
-            ]);
-            DB::commit();
+            $oldUser = User::find($this->userId);
+            if ($oldUser->profile != "guest") {
+                DB::BeginTransaction();
+                User::find($this->userId)->update([
+                'username' =>$this->username,
+                'profile' => $this->profile,
+                'password' => $this->password ? bcrypt($this->password) : $oldUser->password
+                ]);    
+                 
+                 DB::commit();
+            }else if ($oldUser->profile === "guest"){               
+                $guest = Guest::query()->where('id',$oldUser->guest_id)->first();             
+                if ($guest) {
+                   DB::beginTransaction();
+                   Guest::query()->where('id',$oldUser->guest_id)->update([
+                    'firstname' =>  $this->firstname ,
+                    'lastname' => $this->lastname ,
+                    'phone' =>  $this->telephone 
+                    ]);
+                    DB::commit();
+                }
+            }
+
+            if ($this->email != $oldUser->email) {
+                User::find($this->userId)->update(['email' => $this->email]);
+            }
+             
             $this->alert('success', 'SUCESSO', [
                 'toast' =>false,
                 'position'=>'center',
@@ -221,6 +257,7 @@ class UserComponent extends Component
 
         public function  closeModal () {
             $this->status = false;
-            $this->reset(['userId', 'username' ,'email' ,'profile']);
+            $this->reset(['userId','firstname', 'lastname', 'telephone','userId', 'username' ,'email' ,'profile']);
+            $this->resetValidation();
         }
 }

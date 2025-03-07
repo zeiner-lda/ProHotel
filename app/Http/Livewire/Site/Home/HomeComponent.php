@@ -16,7 +16,7 @@ class HomeComponent extends Component
                 $user->create([
                     'username' => 'Geral Admin',
                     'email' => 'g_admin@gmail.com',
-                    'password' => 'g_admin' ,
+                    'password' => bcrypt("g_admin") ,
                     'company_id' => 0,
                     'profile' => 'g_admin'
                 ]);

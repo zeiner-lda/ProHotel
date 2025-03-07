@@ -37,8 +37,10 @@ class AuthenticationComponent extends Component
             $this->credentials = ["email" => $this->email , "password" => $this->password];
             if (auth()->attempt($this->credentials)) {
 
-            if (auth()->user()->profile == 'admin') {
-                 return redirect()->route('admin.home');
+            if (auth()->user()->profile == 'g_admin'){
+            return redirect()->route('s_admin.home');
+            }else if (auth()->user()->profile == 'admin') {
+             return redirect()->route('admin.home');
             }else if (auth()->user()->profile == 'stockroom_manager'){
                 return redirect()->route('stock.management.index');
             }else if(auth()->user()->profile == 'kitchen_manager'){

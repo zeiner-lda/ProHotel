@@ -20,7 +20,7 @@
     <!-- Select2 Bootstrap Theme -->
     <link href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.5.2/dist/select2-bootstrap-5-theme.min.css" rel="stylesheet" />
     <livewire:styles />
-     @vite(["/resoures/css/app.css" , "/resoures/js/app.js"])
+    {{-- @vite(["/resoures/css/app.css" , "/resoures/js/app.js"]) --}}
   </head>
   <body>
     {{ $slot }}

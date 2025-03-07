@@ -24,6 +24,13 @@
         </a>
       </li>
 
+      <li class="nav-item {{Route::current()->getName() == "admin.hotels" ? "bg-primary rounded" : ""}}">
+        <a class="nav-link d-flex align-items-center justify-content-between" href="{{ route("admin.hotels") }}">
+          <span class="{{ Route::current()->getName() == "admin.hotels" ? 'text-white' : '' }} menu-title">Lista de Hoteis</span>
+          <i  class="{{ Route::current()->getName() == "admin.hotels" ? 'text-white' : '' }} menu-icon fa fa-hotel"></i>
+        </a>
+      </li>
+
         <li class="nav-item {{Route::current()->getName() == "admin.users" ? "bg-primary rounded" : ""}}">
         <a class=" nav-link" href="{{ route("admin.users") }}">
           <span class=" {{ Route::current()->getName() == "admin.users" ? 'text-white' : '' }} menu-title">Utilizadores</span>

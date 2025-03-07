@@ -10,20 +10,39 @@
         <div class="modal-body">
           <form wire:submit.prevent="{{ $status ? 'update' : 'save' }}">
             <div class="gap-1">
-  
-                      <div class='form-group'>
+
+                      <div  class='{{!$status ? 'd-none' : ''}} {{ $status && is_null($firstname) ? 'd-none' : 'd-block' }} form-group'>
+                        <label class='form-label'>Primeiro nome</label>
+                        <input  wire:model='firstname' type='text' class='form-control rounded' />
+                        @error("firstname") <span class='text-danger'>{{ $message }}</span> @enderror
+                      </div>
+
+                      <div  class='{{!$status ? 'd-none' : ''}} {{ $status && is_null($lastname) ? 'd-none' : 'd-block' }} form-group'>
+                        <label class='form-label'>Último nome</label>
+                        <input  wire:model='lastname' type='text' class='form-control rounded' />
+                        @error("lastname") <span class='text-danger'>{{ $message }}</span> @enderror                                               
+                      </div>
+
+                      <div  class='{{!$status ? 'd-none' : ''}} {{ $status && is_null($telephone) ? 'd-none' : 'd-block' }} form-group'>
+                        <label class='form-label'>Telefone</label>
+                        <input  wire:model='telephone' type='text' class='form-control rounded' />
+                        @error("telephone") <span class='text-danger'>{{ $message }}</span> @enderror                                                                  
+                      </div>
+
+                      <div  class='{{ $status && is_null($username) ? 'd-none' : 'd-block' }} form-group'>
                         <label class='form-label'>Nome do utilizador</label>
-                        <input wire:model='username' type='text' class='form-control rounded' />
-                        @error("username") <span class='text-danger'>{{ $message }}</span> @enderror
-                      </div> 
-                   
+                        <input wire:model='username' type='text' class='form-control rounded' />  
+                      @error("username") <span class='text-danger'>{{ $message }}</span> @enderror
+
+                      </div>
+
                     <div class='form-group'>
                       <label class='form-label'>Email</label>
                       <input wire:model='email'  type='text' class='form-control rounded' />
                       @error("email") <span class='text-danger'>{{ $message }}</span> @enderror
                     </div>
-                    
-                    <div class='form-group'>
+
+                    <div class='{{ $profile == 'guest' ? 'd-none' : ''}} form-group'>
                       <label class='form-label'>Perfil</label>
                         <select wire:model='profile' class='form-select text-dark'>
                             <option value="">Selecionar</option>
@@ -32,16 +51,16 @@
                             <option value="stockroom_manager">Gestor de economato</option>
                             <option value="reception">Recepção</option>
                         </select>
-                        @error('profile') <span class='text-danger'>{{$message}}</span>@enderror                         
-                       
-                    </div>   
-                    
+                        @error('profile') <span class='text-danger'>{{$message}}</span>@enderror
+
+                    </div>
+
                     <div class='form-group'>
                         <label class='form-label'>Senha</label>
                         <input wire:model="password" type='password' class='form-control rounded' />
                         @error("password") <span class='text-danger'>{{ $message }}</span> @enderror
                     </div>
-                    
+
                     <div class='form-group'>
                         <label class='form-label'>Foto</label>
                         <input wire:model="photo" type='file' class='form-control rounded' />
@@ -57,5 +76,5 @@
       </div>
     </div>
   </div>
-  
+
 </x-layout.app>
