@@ -16,6 +16,10 @@ class OnlyGeneralAdminAccess
      */
     public function handle(Request $request, Closure $next)
     {
-        return $next($request);
+        if (auth()->check() && auth()->user()->profile === "g_admin") {
+            return $next($request);
+        }else{
+            return redirect()->route('login');
+        }
     }
 }

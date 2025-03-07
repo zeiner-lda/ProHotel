@@ -38,7 +38,7 @@ class AuthenticationComponent extends Component
             if (auth()->attempt($this->credentials)) {
 
             if (auth()->user()->profile == 'g_admin'){
-            return redirect()->route('s_admin.home');
+            return redirect()->route('g_admin.home');
             }else if (auth()->user()->profile == 'admin') {
              return redirect()->route('admin.home');
             }else if (auth()->user()->profile == 'stockroom_manager'){

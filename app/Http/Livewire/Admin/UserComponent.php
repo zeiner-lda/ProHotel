@@ -21,10 +21,7 @@ class UserComponent extends Component
         'username' =>'required',
         'email' =>'required |email|unique:users',
         'password' =>  'required',
-        'profile' =>'required',
-        'firstname' =>'required',
-        'lastname' =>'required',
-        'telephone' =>'required',
+        'profile' =>'required',        
         ];
 
     protected $messages = [
@@ -32,10 +29,7 @@ class UserComponent extends Component
          "email.required" => 'Campo obrigatório',
          "email.unique" => 'Email já cadastrado',
          "password.required" => 'Campo obrigatório',
-         "profile.required" => 'Campo obrigatório',
-         "firstname.required" => 'Campo obrigatório',
-         "lastname.required" => 'Campo obrigatório',
-         "telephone.required" => 'Campo obrigatório',
+         "profile.required" => 'Campo obrigatório',        
         ];
 
     public function render()
@@ -50,6 +44,7 @@ class UserComponent extends Component
             try{
                 if ($this->searcher) {
                     return User::query()->where('username','like','%'.$this->searcher.'%')
+                    ->orWhere('email', $this->searcher)
                     ->where('profile','<>','g_admin')
                     ->where('profile', '<>', 'guest')
                     ->where('company_id', auth()->user()->company_id)

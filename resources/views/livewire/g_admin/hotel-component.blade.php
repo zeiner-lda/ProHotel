@@ -5,7 +5,7 @@
          <x-admin.modal-form-hotel :status='$status' />
          <livewire:admin.top-bar-component />
           <div class="container-fluid page-body-wrapper">
-         <x-admin.side-bar />
+            <x-g_admin.side-bar />
             <div class="main-panel">
               <div class="content-wrapper">
 

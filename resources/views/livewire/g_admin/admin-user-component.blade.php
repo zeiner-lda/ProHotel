@@ -1,20 +1,19 @@
 
 <div>
     @section("title" , "Lista de Utilizadores")
-    <x-admin.modal-form-user :profile='$profile' :status='$status' :username='$username' :firstname='$firstname' :lastname='$lastname' :telephone='$telephone'  />
+    <x-g_admin.modal-form-user :allHotels='$allHotels' :profile='$profile' :status='$status' :username='$username' :firstname='$firstname' :lastname='$lastname' :telephone='$telephone'  />
         <div class="container-scroller">
             <livewire:admin.top-bar-component />
           <div class="container-fluid page-body-wrapper">
-            <x-admin.side-bar />
+            <x-g_admin.side-bar />
             <div class="main-panel">
               <div class="content-wrapper">
 
                 <div class="container-fluid">
-
                      <div class="col-lg-12 grid-margin stretch-card">
                     <div class="card">
                       <div class="card-body">
-                        <h5 class="card-title text-muted text-uppercase">Utilizadores</h5>
+                        <h5 class="card-title text-muted text-uppercase">Utilizadores Administradores Dos Hoteis</h5>
                         </p>
 
                         <div class="col-md-12 d-flex align-items-center gap-2">

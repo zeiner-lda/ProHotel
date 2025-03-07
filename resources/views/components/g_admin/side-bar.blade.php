@@ -17,24 +17,24 @@
         </a>
       </li>
 
-      <li class="nav-item {{Route::current()->getName() == "admin.home" ? "bg-primary  rounded" : ""}}">
-        <a  class=" nav-link" href="{{ route("admin.home") }}">
-          <span class="{{ Route::current()->getName() == "admin.home" ? 'text-white' : '' }} menu-title">Dashboard</span>
-          <i class="{{ Route::current()->getName() == "admin.home" ? 'text-white' : '' }} fa fa-solid fa-home menu-icon"></i>
+      <li class="nav-item {{Route::current()->getName() == "g_admin.home" ? "bg-primary  rounded" : ""}}">
+        <a  class=" nav-link" href="{{ route("g_admin.home") }}">
+          <span class="{{ Route::current()->getName() == "g_admin.home" ? 'text-white' : '' }} menu-title">Dashboard</span>
+          <i class="{{ Route::current()->getName() == "g_admin.home" ? 'text-white' : '' }} fa fa-solid fa-home menu-icon"></i>
         </a>
       </li>
 
-      <li class="nav-item {{Route::current()->getName() == "admin.hotels" ? "bg-primary rounded" : ""}}">
-        <a class="nav-link d-flex align-items-center justify-content-between" href="{{ route("admin.hotels") }}">
-          <span class="{{ Route::current()->getName() == "admin.hotels" ? 'text-white' : '' }} menu-title">Lista de Hoteis</span>
-          <i  class="{{ Route::current()->getName() == "admin.hotels" ? 'text-white' : '' }} menu-icon fa fa-hotel"></i>
+      <li class="nav-item {{Route::current()->getName() == "g_admin.hotels" ? "bg-primary rounded" : ""}}">
+        <a class="nav-link d-flex align-items-center justify-content-between" href="{{ route("g_admin.hotels") }}">
+          <span class="{{ Route::current()->getName() == "g_admin.hotels" ? 'text-white' : '' }} menu-title">Lista de Hoteis</span>
+          <i  class="{{ Route::current()->getName() == "g_admin.hotels" ? 'text-white' : '' }} menu-icon fa fa-hotel"></i>
         </a>
       </li>
 
-        <li class="nav-item {{Route::current()->getName() == "admin.users" ? "bg-primary rounded" : ""}}">
-        <a class=" nav-link" href="{{ route("admin.users") }}">
-          <span class=" {{ Route::current()->getName() == "admin.users" ? 'text-white' : '' }} menu-title">Utilizadores</span>
-            <i class=" {{ Route::current()->getName() == "admin.users" ? 'text-white' : '' }} fa fa-solid fa-user-group menu-icon"></i>
+        <li class="nav-item {{Route::current()->getName() == "g_admin.users" ? "bg-primary rounded" : ""}}">
+        <a class=" nav-link" href="{{ route("g_admin.users") }}">
+          <span class=" {{ Route::current()->getName() == "g_admin.users" ? 'text-white' : '' }} menu-title">Utilizadores</span>
+            <i class=" {{ Route::current()->getName() == "g_admin.users" ? 'text-white' : '' }} fa fa-solid fa-user-group menu-icon"></i>
           </a>
       </li>
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire\Admin;
+namespace App\Http\Livewire\GeneralAdmin;
 use \App\Models\{Company As Hotel};
 use Illuminate\Support\Facades\DB;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
@@ -36,7 +36,7 @@ class HotelComponent extends Component
 
     public function render()
     {
-        return view('livewire.admin.hotel-component',[
+        return view('livewire.g_admin.hotel-component',[
             "companies" =>$this->getCompany()
         ])->layout('layouts.admin.app');
     }
