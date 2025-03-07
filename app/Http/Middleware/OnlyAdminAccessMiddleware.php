@@ -13,7 +13,7 @@ class OnlyAdminAccessMiddleware
         if (auth()->check() && auth()->user()->profile === "admin") {
             return $next($request);
         }else{
-            return redirect()->route('login');
+            return redirect()->back();
         }
     }
 }

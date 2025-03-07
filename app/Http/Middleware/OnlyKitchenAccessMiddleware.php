@@ -13,7 +13,7 @@ class OnlyKitchenAccessMiddleware
         if (auth()->check() && auth()->user()->profile === "kitchen_manager") {
             return $next($request);
         }else{
-            return redirect()->route('login');
+            return redirect()->back();
         }
     }
 }

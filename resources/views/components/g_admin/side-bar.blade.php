@@ -38,6 +38,13 @@
           </a>
       </li>
 
+      <li class="nav-item {{Route::current()->getName() == "g_admin.profile" ? "bg-primary rounded" : ""}}">
+        <a class=" nav-link" href="{{ route("g_admin.profile") }}">
+          <span class=" {{ Route::current()->getName() == "g_admin.profile" ? 'text-white' : '' }} menu-title">Meu Perfil</span>
+            <i class=" {{ Route::current()->getName() == "g_admin.profile" ? 'text-white' : '' }} fa fa-solid fa-lock menu-icon"></i>
+          </a>
+      </li>
+
 
 
     </ul>

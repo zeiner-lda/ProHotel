@@ -13,7 +13,7 @@ class OnlyClientsAccessMiddleware
         if (auth()->check() && auth()->user()->profile === "guest") {
             return $next($request);
         }else{
-            return redirect()->route('login');
+            return redirect()->back();
         }
     }
 }
