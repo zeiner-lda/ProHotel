@@ -52,6 +52,13 @@
               </a>
           </li>
 
+          <li class="nav-item {{Route::current()->getName() == "reception.guests" ? "bg-primary rounded" : ""}}">
+            <a class=" nav-link" href="{{ route("reception.guests") }}">
+              <span class=" {{ Route::current()->getName() == "reception.guests" ? 'text-white' : '' }} menu-title">Hóspedes</span>
+                <i class=" {{ Route::current()->getName() == "reception.guests" ? 'text-white' : '' }} fa fa-solid  fa-user menu-icon"></i>
+              </a>
+          </li>
+
 
           <li class="nav-item {{Route::current()->getName() == "reception.testimonials" ? "bg-primary rounded" : ""}}">
             <a class=" nav-link" href="{{ route("reception.testimonials") }}">

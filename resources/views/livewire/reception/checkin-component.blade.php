@@ -82,7 +82,7 @@
                                 @endforeach
                                 @else
                                   <tr>
-                                      <td colspan="10">
+                                      <td colspan="12">
                                               <div class='alert alert-warning text-center'>Nenhum resultado encontrado!</div>
                                       </td>
                                   </tr>
